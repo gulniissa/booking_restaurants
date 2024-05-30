@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load diagnosis_tags %}
+{% block content %}
+<style>.form-check {
+    display: grid;
+    grid-template-columns: repeat(5, auto); /* Распределение на 5 столбцов */
+    grid-column-gap: 10px; /* Горизонтальный отступ между чекбоксами */
+    grid-row-gap: 10px; /* Вертикальный отступ между чекбоксами */
+}
+</style>
+<div class="breadcrumb-bar"></div>
+<div class="content" style="transform: none; min-height: 107.24px;">
+    <div class="container" style="transform: none;">
+        <div class="row" style="transform: none;">
+            <div class="row">
+                <div class="col-lg-8 col-md-12">
+                    <div class="paitent-header">
+                        <h4 class="paitent-title">Брондау мәліметтері</h4>
+                    </div>
+                    <div class="paitent-appointment">
+                        <form method="post" action="{% url 'diagnosis:patient_form' doctor.pk %}">
+    {% csrf_token %}
+    <input type="hidden" value="{{ appointment_datetime|date:'Y-m-d H:i' }}" name="appointment_datetime">
+    {{ form.as_p }}
+    {% for dish in dishes %}
+        <input type="hidden" name="selected_dishes" value="{{ dish.pk }}" class="dish-checkbox">
+    {% endfor %}
+    {% for service in selected_services %}
+        <input type="hidden" name="selected_services" value="{{ service.pk }}">
+    {% endfor %}
+    <div class="submit-section proceed-btn text-right">
+        <button type="submit" class="btn btn-primary">Сақтау</button>
+    </div>
+</form>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="booking-header">
+                        <h4 class="booking-title">Брондамақшысыз</h4>
+                    </div>
+                    <div class="card booking-card">
+                        <div class="card-body booking-card-body">
+                            <div class="booking-doctor-details">
+                                <div class="booking-doctor-left">
+                                    <div class="booking-doctor-img">
+                                        <a href="doctor-profile.html">
+                                            <img src="{% static 'img/patient_logo.png' %}" alt="John Doe">
+                                        </a>
+                                    </div>
+                                    <div class="booking-doctor-info">
+                                        <h4><a href="doctor-profile.html">{{ doctor.user.get_full_name }}</a></h4>
+                                        <p>
+                                            {% for specialty in doctor.specialties.all %}
+                                                {{ specialty.name }}
+                                            {% endfor %}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="booking-doctor-right"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card booking-card">
+                        <div class="card-body booking-card-body booking-list-body">
+                            <div class="booking-list">
+                                <div class="booking-date-list">
+                                    <ul>
+                                        <li>Брондау күні: <span>{{ appointment_datetime }}</span></li>
+                                    </ul>
+                                </div>
+                                <div class="booking-doctor-right">
+                                    <p><i class="fas fa-circle-check"></i></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.form-check-input').change(function() {
+            var selectedDishes = [];
+            $('.dish-checkbox:checked').each(function() {
+                selectedDishes.push($(this).val());
+            });
+            $('input[name="selected_dishes"]').val(selectedDishes.join(','));
+        });
+    });
+</script>
+{% endblock %}
+{% endblock %}

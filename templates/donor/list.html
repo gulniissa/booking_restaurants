@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="breadcrumb-bar">
+</div>
+
+<div class="content" style="transform: none; min-height: 107.24px;">
+	<div class="container" style="transform: none;">
+		<div class="row" style="transform: none;">
+			<div class="col-md-12 col-lg-4 col-xl-3 theiaStickySidebar" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
+				<div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none; top: 0px; left: 73.6667px;"><div class="card search-filter">
+					<div class="card-header">
+						<h4 class="card-title mb-0">List of applications for donation</h4>
+					</div>
+					<div class="card-body">
+
+                        {% if user_responses %}
+                            <div class="card flex-fill">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">Your responses</h5>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    {% for response in user_responses %}
+                                        <li class="list-group-item">{{ response.doctor_request.title }} <small>{{ response.created_at }}</small></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+
+					</div>
+				</div><div class="resize-sensor" style="position: absolute; inset: 0px; overflow: hidden; z-index: -1; visibility: hidden;"><div class="resize-sensor-expand" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0px; top: 0px; transition: all 0s ease 0s; width: 295px; height: 379px;"></div></div><div class="resize-sensor-shrink" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0; top: 0; transition: 0s; width: 200%; height: 200%"></div></div></div></div></div>
+				<div class="col-md-12 col-lg-8 col-xl-9">
+                    {% for request in requests %}
+					<div class="card">
+						<div class="card-body">
+							<div class="doctor-widget">
+								<div class="doc-info-left">
+									<div class="doc-info-cont">
+										<h4 class="doc-name mb-2"><a href="">{{ request.title }}</a></h4>
+										<div class="rating mb-2">
+											Количество откликов:
+											<span class="d-inline-block average-rating">{{ request.response_count }}</span>
+										</div>
+										<div class="clinic-details">
+											<div class="clini-infos pt-3">
+												<p class="doc-location mb-2">{{ request.description }}</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="doc-info-right">
+									<div class="clinic-booking">
+                                        {% if request.id in user_responses_ids %}
+                                        <p>You have already responded to this request.</p>
+                                        {% else %}
+                                        <a class="apt-btn" href="{% url 'diagnosis:respond_to_request' request.id %}">Reply</a>
+                                        {% endif %}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+                    {% endfor %}
+				</div>
+			</div>
+	</div>
+</div>
+
+
+
+{% endblock %}

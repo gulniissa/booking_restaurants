@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load diagnosis_tags %}
+
+{% block head %}
+    <style>
+        .section1 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(250, 250, 250);
+            min-height: 100vh;
+        }
+
+        .payment-box {
+            border: 1px solid rgb(221, 221, 221);
+            border-radius: 10px;
+            font-weight: bold;
+            width: 50%;
+            max-width: 500px;
+            margin: auto;
+            overflow: hidden;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment-box-head-div {
+            background-color: rgb(245, 245, 245);
+            padding: 15px;
+            border-bottom: 1px solid rgb(221, 221, 221);
+            text-align: center;
+        }
+
+        .payment-box-head h5 {
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .card-img {
+            width: 60px;
+            height: auto;
+        }
+
+        .payment-details-input-box {
+            padding: 20px;
+        }
+
+        input, select {
+            box-shadow: inset 0 0 3px rgba(0, 0, 0, .1);
+        }
+
+        .form-group {
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        label {
+            margin-bottom: .3rem;
+            font-size: .9em;
+            font-weight: bold;
+        }
+
+        .expiry-input-div {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .payment-btn {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            font-size: 1.1em;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+
+        @media (max-width: 576px) {
+            .payment-box {
+                width: 90%;
+            }
+
+            .payment-box-head-div {
+                padding: 10px;
+            }
+
+            .payment-details-input-box {
+                padding: 15px;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="content" style="transform: none; min-height: 107.24px;">
+    <section class="section section1">
+        <div class="container">
+            <div class="payment-box">
+                <div class="payment-box-head-div">
+                    <div class="payment-box-head">
+                        <h5>Детали оплаты</h5>
+                        <img class="card-img" style="width: 150px" src="{% static 'img/card.png' %}">
+                    </div>
+                </div>
+                <div class="payment-details-input-box">
+                    <form action="{% url 'diagnosis:payment' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="diagnoses" value="{{diagnoses}}">
+                        <input type="hidden" name="diagnosis_histories" value="{{diagnosis_histories}}">
+                        <input type="hidden" name="doctor_id" value="{{doctor_id}}">
+                        <input type="hidden" name="doctor" value="{{doctor}}">
+                        <input type="hidden" name="appointment" value="{{appointment}}">
+
+                        <div class="form-group">
+                            <label for="card_number">НОМЕР КАРТЫ</label>
+                            <div class="input-group">
+                                <input type="tel" pattern="[0-9]*" class="form-control" id="card_number" name="cardNumber" autocomplete="off" maxlength="19" placeholder="Введите номер карты" required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-credit-card" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/>
+                                            <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"/>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="card_holder_name">ИМЯ ВЛАДЕЛЬЦА КАРТЫ</label>
+                            <input type="text" name="cardHolderName" class="form-control" id="cardHolderName" placeholder="Введите имя" required>
+                        </div>
+                        <div class="form-group expiry-cvv">
+                            <label for="expiry_month">СРОК ДЕЙСТВИЯ</label>
+                            <div class="expiry-input-div">
+                                <select name="expMonth" id="expiry_month" class="form-control" required>
+                                    <option value="">Месяц</option>
+                                    <option value="01">01</option>
+                                    <option value="02">02</option>
+                                    <option value="03">03</option>
+                                    <option value="04">04</option>
+                                    <option value="05">05</option>
+                                    <option value="06">06</option>
+                                    <option value="07">07</option>
+                                    <option value="08">08</option>
+                                    <option value="09">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                                <select name="expYear" id="expiry_year" class="form-control" required>
+                                    <option value="">Год</option>
+                                    {% for year in 2024|year_range:2056 %}
+                                        <option value="{{ year }}">{{ year }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv_number">CVV КОД</label>
+                            <input type="password" pattern="[0-9]*" class="form-control" placeholder="CVV" id="cvv_number" name="cvv" maxlength="3" required>
+                        </div>
+                        <div class="payment-btn">
+                            <button class="btn btn-primary btn-danger">Оплатить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+{% endblock %}

@@ -1,0 +1,354 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load diagnosis_tags %}
+
+{% block content %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<style>
+     #map { height: 400px; }
+    .services-list {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .services-list li {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        padding: 15px;
+        font-size: 18px;
+        color: #555;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease;
+    }
+
+    .services-list li:hover {
+        background-color: #f1f1f1;
+    }
+
+    .carousel-item {
+        text-align: center; /* Center align the images */
+    }
+
+    .carousel-image {
+        width: 100%; /* Ensure the image width covers the container */
+        height: 500px; /* Set consistent height */
+        object-fit: cover; /* Maintain aspect ratio and cover the area */
+        margin: 0 auto; /* Center horizontally */
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+        top: 50%; /* Position the buttons vertically at 50% of the parent container */
+        transform: translateY(-50%); /* Center the buttons vertically */
+        width: 3rem; /* Set the width of the buttons */
+        height: 3rem; /* Set the height of the buttons */
+        opacity: 0.8; /* Set the opacity of the buttons */
+    }
+
+    .carousel-control-prev {
+        left: -3rem; /* Position the previous button 3rem to the left */
+    }
+
+    .carousel-control-next {
+        right: -3rem; /* Position the next button 3rem to the right */
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-color: #000; /* Set the background color of the icons */
+    }
+
+    /* Optionally, you can adjust the size of the icons */
+    .carousel-control-prev-icon::before,
+    .carousel-control-next-icon::before {
+        font-size: 2rem; /* Set the size of the icons */
+    }
+
+    .card-new {
+        --bs-card-spacer-y: 1rem;
+        --bs-card-spacer-x: 1rem;
+        --bs-card-title-spacer-y: 0.5rem;
+        --bs-card-title-color: ;
+        --bs-card-subtitle-color: ;
+        --bs-card-border-width: var(--bs-border-width);
+        --bs-card-border-color: var(--bs-border-color-translucent);
+        --bs-card-border-radius: var(--bs-border-radius);
+        --bs-card-box-shadow: ;
+        --bs-card-inner-border-radius: calc(var(--bs-border-radius) - (var(--bs-border-width)));
+        --bs-card-cap-padding-y: 0.5rem;
+        --bs-card-cap-padding-x: 1rem;
+        --bs-card-cap-bg: rgba(var(--bs-body-color-rgb), 0.03);
+        --bs-card-cap-color: ;
+        --bs-card-height: ;
+        --bs-card-color: ;
+        --bs-card-group-margin: 0.75rem;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        height: var(--bs-card-height);
+        color: var(--bs-body-color);
+        word-wrap: break-word;
+        background-color: var(--bs-card-bg);
+        background-clip: border-box;
+        border: var(--bs-card-border-width) solid var(--bs-card-border-color);
+        border-radius: var(--bs-card-border-radius);
+    }
+</style>
+
+<div class="breadcrumb-bar">
+</div>
+<div class="content">
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <div class="doctor-widget">
+                    <div class="doc-info-left">
+                        <div class="doctor-img">
+                            <a href="{% url 'diagnosis:doctor_detail' doctor.id %}">
+                                <img src="{{doctor.photo.url}}" class="img-fluid" alt="User Image">
+                            </a>
+                        </div>
+                        <div class="doc-info-cont">
+                            <h4 class="doc-name"><a href="{% url 'diagnosis:doctor_detail' doctor.id %}">{{doctor.user.get_full_name}}</a></h4>
+                            <p class="doc-speciality">
+                                {% for specialty in doctor.specialties.all %}
+                                    {{ specialty.name }}
+                                {% endfor %}
+                            </p>
+                            <p>{{doctor.phone_number}}</p>
+                            <div class="rating">
+                                {% render_stars doctor.pk %}
+                                <span class="d-inline-block average-rating">({% get_doctor_reviews_count doctor_pk=doctor.pk %})</span>
+                            </div>
+                            <div class="clinic-details">
+                                <p class="doc-location"><i class="fas fa-map-marker-alt"></i> {{doctor.city.name}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="doc-info-right">
+                        <div class="clini-infos">
+                            <ul>
+                                <li><i class="far fa-thumbs-up"></i> {% get_doctor_rating doctor_pk=doctor.pk %}</li>
+                                <li><i class="far fa-comment"></i> {% get_doctor_reviews_count doctor_pk=doctor.pk %}</li>
+                                <li><i class="fas fa-map-marker-alt"></i> {{doctor.city.name}}</li>
+                                <li><i class="far fa-money-bill-alt"></i> {{doctor.price}} тг </li>
+                                <li><i class="fa-solid fa-chair"></i> {{doctor.seats}} </li>
+                            </ul>
+                        </div>
+                        <div class="doctor-action">
+                            <a href="mailto:{{doctor.user.email}}" class="btn btn-white fav-btn">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                            <a href="tel:{{doctor.phone_number}}" class="btn btn-white call-btn">
+                                <i class="fas fa-phone"></i>
+                            </a>
+                            <a href="{% url 'diagnosis:chat_view' doctor.user.id %}" class="btn btn-white msg-btn">
+                                <i class="far fa-comment-alt"></i>
+                            </a>
+                        </div>
+                        <div class="clinic-booking">
+                            <a class="apt-btn" href="{% url 'diagnosis:chat_view' doctor.user.id %}">Мейрамханамен байланыс</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+        <h2>Қолжетімді қызметтер</h2>
+        <ul class="services-list">
+            {% for service in doctor.services.all %}
+                <li>{{ service.name }}: {{ service.description }}</li>
+            {% endfor %}
+        </ul></div>
+        </div>
+        <!-- Карусель фотографий доктора -->
+        <div class="card-new">
+            <div class="card-body">
+                <h4 class="card-title">Фотолар</h4>
+                <div id="tourCarousel" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+        {% for photo in doctor.photos.all %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <img src="{{ photo.photo.url }}" class="d-block w-100 h-100 carousel-image" alt="{{ photo.caption }}">
+                {% if photo.caption %}
+                <div class="carousel-caption d-none d-md-block">
+
+                </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+    <a class="carousel-control-prev" href="#tourCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#tourCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+            </div>
+        </div>
+        <!-- Конец карусели -->
+
+        <div class="card">
+            <div class="card-body pt-0">
+                <nav class="user-tabs mb-4">
+                    <ul class="nav nav-tabs nav-tabs-bottom nav-justified" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" href="#doc_overview" data-bs-toggle="tab" aria-selected="false" role="tab" tabindex="-1">Мейрамхана жайлы</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" href="#doc_locations" data-bs-toggle="tab" aria-selected="false" role="tab" tabindex="-1">Жазылымдар</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" href="#doc_reviews" data-bs-toggle="tab" aria-selected="true" role="tab">Пікірлер</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="tab-content pt-0">
+                    <div role="tabpanel" id="doc_overview" class="tab-pane">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-9">
+                                <div class="widget about-widget">
+                                    <h4 class="widget-title">Мейрамхана жайлы</h4>
+                                    <p>{{doctor.about}}</p>
+                                    <div id="map"></div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" id="doc_locations" class="tab-pane fade">
+                        <div class="location-list">
+                            <div class="row">
+                                <div class="card booking-schedule schedule-widget">
+
+                                    <!-- Time Slots -->
+    <div class="schedule-cont justify-content-center">
+    <div class="row justify-content-right"> <!-- Добавляем justify-content-center для центрирования -->
+        <div class="col-md-12">
+            <div class="time-slot">
+                <ul class="clearfix">
+                    <li>
+                        <form action="{% url 'diagnosis:patient_form' doctor.id %}" method="GET" class="mx-center">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="selected_date" class="form-label">Таңдаңыз күн</label>
+                                <input type="date" id="selected_date" name="date" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="selected_time" class="form-label">Таңдаңыз уақыт</label>
+                                <input type="time" id="selected_time" name="time" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Таңдау</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" id="doc_reviews" class="tab-pane fade active show">
+                        <div class="widget review-listing">
+                            <ul class="comments-list">
+                                {% for rating in ratings %}
+                                <li>
+                                    <div class="comment">
+                                        <img class="avatar avatar-sm rounded-circle" alt="User Image" src="{% static 'img/patient_logo.png' %}">
+                                        <div class="comment-body">
+                                            <div class="meta-data">
+                                                <span class="comment-author">{{rating.patient.user.username}}</span>
+                                                <span class="comment-date">{{rating.date}}</span>
+                                                <div class="review-count rating">
+                                                    {% render_stars_for_detail_page rating.rating %}
+                                                </div>
+                                            </div>
+                                            <p class="comment-content">
+                                                {{rating.text}}
+                                            </p>
+                                            <div class="comment-reply">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            <div class="all-feedback text-center">
+                                <!-- Здесь может быть дополнительный контент по отзывам -->
+                            </div>
+                        </div>
+                        <div class="write-review">
+                            <h4>Пікір қалдырыңыз <strong>{{doctor.user.get_full_name}}</strong></h4>
+                            <form action="{% url 'diagnosis:doctor_detail' doctor.id %}" method="post">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label class="mb-2">Пікір</label>
+                                    <div class="star-rating">
+                                        <input id="star-5" type="radio" name="rating" value="5">
+                                        <label for="star-5" title="5 stars">
+                                            <i class="active fa fa-star"></i>
+                                        </label>
+                                        <!-- Добавьте другие звезды по аналогии -->
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="mb-2">Сіздің пікіріңіз</label>
+                                    <textarea id="review_desc" maxlength="100" name="text" class="form-control"></textarea>
+                                    <div class="d-flex justify-content-between mt-3"><small class="text-muted"><span id="chars">100</span> символдан көп болмау керек</small></div>
+                                </div>
+                                <hr>
+                                <div class="mb-3">
+                                    <div class="terms-accept">
+                                        <div class="custom-checkbox">
+                                            <input type="checkbox" id="terms_accept">
+                                            <label for="terms_accept">Мен Шарттарды оқыдым және қабылдайм</a></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="submit-section">
+                                    <button type="submit" class="btn btn-primary submit-btn">Пікір қалдыру</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  <script src = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <link rel = "stylesheet" href = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+  <script>
+    // Creating map options
+ var mapOptions = {
+ center: [17.385044, 78.486671],
+ zoom: 10
+ }
+
+ // Creating a map object
+ var map = new L.map('map', mapOptions);
+
+ // Creating a Layer object
+ var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+
+ // Adding layer to the map
+ map.addLayer(layer);
+    L.marker([{{coordinates.lat}}, {{coordinates.lon}}]).addTo(map)
+      .bindPopup('Рестораннын адресы')
+      .openPopup();
+  </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock %}

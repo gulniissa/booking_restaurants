@@ -1,0 +1,197 @@
+{% extends 'base_doctor.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block content %}
+
+
+
+<div class="breadcrumb-bar">
+			</div>
+
+			<div class="content" style="transform: none; min-height: 107.24px;">
+				<div class="container" style="transform: none;">
+					<div class="row" style="transform: none;">
+						<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
+
+
+
+							<div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none; top: 0px; left: 73.6667px;"><div class="profile-sidebar">
+								<div class="widget-profile pro-widget-content">
+									<div class="profile-info-widget">
+										<a href="#" class="booking-doc-img">
+											<img src="{% static 'img/patient_logo.png' %}" alt="User Image">
+										</a>
+										<div class="profile-det-info">
+											<h3>Dr. {{request.user.get_full_name}}</h3>
+											<div class="patient-details">
+												<h5 class="mb-0">Мейрамхана</h5>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="dashboard-widget">
+									<nav class="dashboard-menu">
+										<ul>
+											<li class="active">
+												<a href="">
+													<i class="fas fa-columns"></i>
+													<span>Клиенттер</span>
+												</a>
+											</li>
+											<li>
+												<a href="{% url 'login' %}">
+													<i class="fas fa-sign-out-alt"></i>
+													<span>Шығу</span>
+												</a>
+											</li>
+										</ul>
+									</nav>
+								</div>
+							</div><div class="resize-sensor" style="position: absolute; inset: 0px; overflow: hidden; z-index: -1; visibility: hidden;"><div class="resize-sensor-expand" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0px; top: 0px; transition: all 0s ease 0s; width: 295px; height: 500px;"></div></div><div class="resize-sensor-shrink" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0; top: 0; transition: 0s; width: 200%; height: 200%"></div></div></div></div></div>
+						<div class="col-md-7 col-lg-8 col-xl-9">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="card dash-card">
+											<div class="card-body">
+												<div class="row">
+													<div class="col-md-12 col-lg-4">
+														<div class="dash-widget dct-border-rht">
+															<div class="circle-bar circle-bar1">
+																<div class="circle-graph1" data-percent="75"><canvas width="600" height="600" style="height: 400px; width: 400px;"></canvas>
+																	<img src="{% static 'img/patient_logo.png' %}" class="img-fluid" alt="patient">
+																</div>
+															</div>
+															<div class="dash-widget-info">
+																<h6>Барлық клиенттер</h6>
+																<h3>1500</h3>
+																<p class="text-muted">Барлық уақытта</p>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-12 col-lg-4">
+														<div class="dash-widget dct-border-rht">
+															<div class="circle-bar circle-bar2">
+																<div class="circle-graph2" data-percent="65"><canvas width="600" height="600" style="height: 400px; width: 400px;"></canvas>
+																	<img src="{% static 'img/patient_logo.png' %}" class="img-fluid" alt="Patient">
+																</div>
+															</div>
+															<div class="dash-widget-info">
+																<h6>Барлық клиенттер</h6>
+																<h3>160</h3>
+																<p class="text-muted">Бүгін</p>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-12 col-lg-4">
+														<div class="dash-widget">
+															<div class="circle-bar circle-bar3">
+																<div class="circle-graph3" data-percent="50"><canvas width="600" height="600" style="height: 400px; width: 400px;"></canvas>
+																	<img src="{% static 'img/patient_logo.png' %}" class="img-fluid" alt="Patient">
+																</div>
+															</div>
+															<div class="dash-widget-info">
+																<h6>Жазылымдар</h6>
+																<h3>12</h3>
+																<p class="text-muted">Бүгін</p>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							<!-- Форма для бронирования -->
+            <form action="{% url 'diagnosis:patient_form' doctor.id %}" method="GET" class="mx-center">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="selected_date" class="form-label">Таңдаңыз күн</label>
+                    <input type="date" id="selected_date" name="date" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="selected_time" class="form-label">Таңдаңыз уақыт</label>
+                    <input type="time" id="selected_time" name="time" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Таңдау</button>
+            </form>
+            <!-- Конец формы для бронирования -->
+								<div class="row">
+									<div class="col-md-12">
+										<h4 class="mb-4">Брондар</h4>
+										<div class="appointment-tab">
+
+                                            <form method="get">
+											<ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded" role="tablist">
+
+												<li class="nav-item" role="presentation" style="padding:3px;">
+                                                    {{ search_form.identification_number|add_class:"form-control"}}
+												</li>
+                                                <li class="nav-item" role="presentation" style="padding:3px;">
+                                                    {{ search_form.period|add_class:"form-control"}}
+												</li>
+												<li class="nav-item" role="presentation" style="padding:3px;">
+                                                    <button class="btn btn-success" type="submit" name="period" value="today">Бүгін</button>
+												</li>
+                                                <li class="nav-item" role="presentation" style="padding:3px;">
+                                                    <button class="btn btn-success" type="submit" name="period" value="next_week">1 Апта</button>
+												</li>
+                                                <li class="nav-item" role="presentation" style="padding:3px;">
+                                                    <button class="btn btn-success" type="submit" name="period" value="next_month">1 Ай</button>
+												</li>
+
+											</ul>
+                                            </form>
+
+											<div class="">
+												<div class="tab-pane" >
+													<div class="card card-table mb-0">
+														<div class="card-body">
+															<div class="table-responsive">
+																<table class="table table-hover table-center mb-0">
+																	<thead>
+																		<tr>
+																			<th>Аты жөні</th>
+																			<th>ЖСН</th>
+																			<th>Күні</th>
+																			<th>Әрекет</th>
+																		</tr>
+																	</thead>
+																	<tbody>
+
+                                                                       {% if appointments %}
+                                                                        {% for appointment in appointments %}
+																		<tr>
+																			<td>
+																				<h2 class="table-avatar">
+																					<a href="{% url 'diagnosis:patient_detail' appointment.id %}">{{ appointment.patient.user.get_full_name }} <span>#{{ appointment.id }}</span></a>
+																				</h2>
+																			</td>
+                                                                            <td>{{ appointment.patient.identification_number }}</td>
+																			<td>{{ appointment.date }}</td>
+																			<td>
+																				<div class="table-action">
+																					<a href="{% url 'diagnosis:patient_detail' appointment.id %}" class="btn btn-sm bg-info-light">
+																						<i class="far fa-eye"></i> Толығырақ
+																					</a>
+																				</div>
+																			</td>
+																		</tr>
+                                                                    {% endfor %}
+{% endif %}
+																	</tbody>
+																</table>
+															</div>
+														</div>
+													</div>
+												</div>
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+{% endblock %}

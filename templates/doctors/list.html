@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load diagnosis_tags %}
+{% block content %}
+<div class="breadcrumb-bar">
+</div>
+
+
+			<div class="content" style="transform: none; min-height: 107.24px;">
+				<div class="container" style="transform: none;">
+					<div class="row" style="transform: none;">
+						<div class="col-md-12 col-lg-4 col-xl-3 theiaStickySidebar" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
+
+
+
+							<div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none; top: 0px; left: 73.6667px;"><div class="card search-filter">
+								<div class="card-header">
+									<h4 class="card-title mb-0">Іздеу</h4>
+								</div>
+								<div class="card-body">
+									<form action="{% url 'diagnosis:doctor_list' %}" method="get">
+										<div class="filter-widget">
+											<div>
+												<label for="">Мейрамхана атауы</label>
+												<input type="search" class="form-control" {% if search_text %} value="{{search_text}}" {% endif %} name="search_text" placeholder="Мейрамханаларды іздеу">
+											</div>
+											<br>
+											<div>
+												<label for="">Минимум баға</label>
+												<input type="number" class="form-control" {% if min_price %} value="{{min_price}}" {% endif %} name="min_price" placeholder="Мин. баға">
+
+												<br>
+												<label for="">Максимум баға</label>
+												<input type="number" class="form-control" {% if max_price %} value="{{max_price}}" {% endif %} name="max_price" placeholder="Макс. баға">
+											</div><br>
+											<div>
+												<label for="">Қаланы таңдаңыз</label>
+												<select class="form-control" name="city">
+													<option value="">Қаланы таңдаңыз</option>
+													{% for city in cities %}
+														<option value="{{ city.id }}">{{ city.name }}</option>
+													{% endfor %}
+												</select>
+											</div><br>
+											<div>
+												<label for="">Күні бойынша таңдау</label>
+												<input type="date" class="form-control" name="date" placeholder="Күнді таңдаңыз">
+											</div>
+										</div>
+										<div class="btn-search">
+											<button type="submit" class="btn w-100">Іздеу</button>
+										</div>
+									</form>
+
+								</div>
+							</div><div class="resize-sensor" style="position: absolute; inset: 0px; overflow: hidden; z-index: -1; visibility: hidden;"><div class="resize-sensor-expand" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0px; top: 0px; transition: all 0s ease 0s; width: 295px; height: 1702px;"></div></div><div class="resize-sensor-shrink" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0; top: 0; transition: 0s; width: 200%; height: 200%"></div></div></div></div></div>
+							<div class="col-md-12 col-lg-8 col-xl-9">
+							{% for doctor in doctors %}
+								<div class="card">
+									<div class="card-body">
+										<div class="doctor-widget">
+											<div class="doc-info-left">
+												<div class="doctor-img">
+													<a href="{% url 'diagnosis:doctor_detail' doctor.id %}">
+														<img src="{{doctor.photo.url}}" class="img-fluid" alt="User Image">
+													</a>
+												</div>
+												<div class="doc-info-cont">
+													<h4 class="doc-name"><a href="{% url 'diagnosis:doctor_detail' doctor.id %}">Мейрамхана - {{doctor.user.get_full_name}}</a></h4>
+													<p class="doc-speciality">
+														{{doctor.about}}
+													</p>
+													<h5 class="doc-department">
+														{% for specialty in doctor.specialties.all %}
+                                            				{{ specialty.name }}
+                                       					{% endfor %}
+													</h5>
+													<div class="rating">
+														{% render_stars doctor.pk %}
+                                        				<span class="d-inline-block average-rating">({% get_doctor_reviews_count doctor_pk=doctor.pk %})</span>
+													</div>
+													<div class="clinic-details">
+														<p class="doc-location"><i class="fas fa-map-marker-alt"></i>{{doctor.city.name}}</p>
+													</div>
+												</div>
+											</div>
+											<div class="doc-info-right">
+												<div class="clini-infos">
+													<ul>
+														<li><i class="far fa-thumbs-up"></i> {% get_doctor_rating doctor_pk=doctor.pk %}</li>
+														<li><i class="far fa-comment"></i> {% get_doctor_reviews_count doctor_pk=doctor.pk %}</li>
+														<li><i class="fas fa-map-marker-alt"></i> {{doctor.city.name}}</li>
+														<li><i class="far fa-money-bill-alt"></i> {{doctor.price}} <i class="fas fa-info-circle" data-bs-toggle="tooltip" aria-label="Lorem Ipsum" data-bs-original-title="Lorem Ipsum"></i></li>
+													</ul>
+												</div>
+												<div class="clinic-booking">
+													<a class="view-pro-btn" href="{% url 'diagnosis:doctor_detail' doctor.id %}">Мейрамхана туралы</a>
+													<a class="apt-btn" href="{% url 'diagnosis:doctor_detail' doctor.id %}">Қазір брондау</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+				</div>
+
+{% endblock %}

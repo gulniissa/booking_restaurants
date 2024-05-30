@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="breadcrumb-bar">
+</div>
+<div class="content" style="transform: none; min-height: 107.24px;">
+<div class="container" style="transform: none;">
+	<div class="row justify-content-center">
+		<div class="col-lg-6">
+			<div class="card success-card">
+				<div class="card-body">
+					<div class="success-cont">
+						<i class="fas fa-check"></i>
+						<h3>Registration for donation</h3>
+						<p>You have successfully completed registration for donation. Now you need to wait for a response from the moderator. You will be notified as soon as your application has been verified. Thank you for your concern and desire to help!</p>
+                        <a href="{% url 'diagnosis:doctor_list' %}">Go back to the main page</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+</div>
+{% endblock %}

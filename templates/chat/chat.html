@@ -1,0 +1,156 @@
+<!-- chat.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="breadcrumb-bar">
+
+			</div>
+
+
+			<div class="content" style="transform: none; min-height: 107.24px;">
+				<div class="container" style="transform: none;">
+					<div class="row">
+						<div class="col-xl-12">
+							<div class="chat-window">
+
+								<div class="chat-cont-left">
+									<div class="chat-users-list">
+										<div class="widget-profile pro-widget-content">
+											<div class="profile-info-widget">
+												<a href="#" class="booking-doc-img">
+													<img src="{% static 'img/patient_logo.png' %}" alt="User Image">
+												</a>
+												<div class="profile-det-info">
+													<h3>{{receiver.get_full_name}}</h3>
+													<div class="patient-details">
+														<h5>Қолданушы: {% if receiver.is_company %} Мейрамхана {% else %} Клиент {% endif %}</h5>
+														{% if receiver.is_company %}
+														<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> {{receiver.doctor.city}}</h5>
+														{% endif %}
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+								<div class="chat-cont-right">
+
+									<div class="chat-body">
+										<div class="chat-scroll">
+											<ul class="list-unstyled">
+                                              {% for message in messages %}
+												<li class="notify-block {% if message.sender == request.user %}sent{% else %}received{% endif %} d-flex">
+													<div class="media-body flex-grow-1">
+														<div class="msg-box">
+															<div>
+																<p>{{ message.text }}</p>
+																<ul class="chat-msg-info">
+																	<li>
+																		<div class="chat-time">
+																			<span>{{ message.timestamp|date:"H:i:s" }}</span>
+																		</div>
+																	</li>
+																</ul>
+															</div>
+														</div>
+													</div>
+												</li>
+                                              {% endfor %}
+											</ul>
+										</div>
+									</div>
+									<form method="post" action="{% url 'diagnosis:chat_view' receiver_id %}">
+                                          {% csrf_token %}
+									<div class="chat-footer">
+										<div class="input-group">
+
+											<input type="text" class="input-msg-send form-control rounded-pill" placeholder="Хатты осында жазыңыз" name="message" id="chat-message-input">
+											<button type="submit" id="chat-message-submit" class="btn msg-send-btn rounded-pill ms-2"><i class="fab fa-telegram-plane" ></i></button>
+
+										</div>
+									</div>
+									</form>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					</div>
+				</div>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  // Элемент, в который вы хотите поместить сообщения
+  const chatBody = document.querySelector('.chat-body .chat-scroll ul');
+
+  // Функция для добавления сообщения в чат
+  function addMessageToChat(message) {
+    // Создаем элемент списка
+    const li = document.createElement('li');
+    li.classList.add('notify-block');
+
+    // Добавляем класс в зависимости от отправителя сообщения
+    if (message.sender__username === "{{ request.user.username }}") {
+      li.classList.add('sent');
+    } else {
+      li.classList.add('received');
+    }
+
+    // Форматируем время сообщения
+    const timestamp = new Date(message.timestamp);
+
+    // Составляем и добавляем в DOM содержимое сообщения
+    li.innerHTML = `
+      <div class="media-body flex-grow-1">
+        <div class="msg-box">
+          <div>
+            <p>${message.text}</p>
+            <ul class="chat-msg-info">
+              <li>
+                <div class="chat-time">
+                  <span>${timestamp.toLocaleTimeString()}</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    `;
+
+    chatBody.appendChild(li);
+  }
+
+  // AJAX-запрос для периодического обновления чата
+  setInterval(function() {
+    fetch("{% url 'diagnosis:fetch_messages' receiver_id %}")
+      .then(response => response.json())
+      .then(data => {
+        // Убедитесь, что chatBody не добавляет одно и то же сообщение более одного раза
+        // Очищаем предыдущие сообщения
+        while (chatBody.firstChild) {
+          chatBody.removeChild(chatBody.firstChild);
+        }
+
+        // Добавляем каждое сообщение в чат
+        data.messages.forEach(addMessageToChat);
+      })
+      .catch(error => {
+        console.error("Ошибка при получении сообщений:", error);
+      });
+  }, 5000);  // обновление каждые 5 секунд
+</script>
+
+{% endblock %}

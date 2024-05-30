@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load diagnosis_tags %}
+{% block content %}
+<div class="breadcrumb-bar">
+
+			</div>
+<div class="content" style="transform: none; min-height: 107.24px;">
+				<div class="container" style="transform: none;">
+					<div class="row justify-content-center">
+						<div class="col-lg-6">
+
+							<div class="card success-card">
+								<div class="card-body">
+									<div class="success-cont">
+										<i class="fas fa-check"></i>
+										<h3>Мейрамхана сәтті брондалды!</h3>
+										<p>Сіз брондадыңыз <strong>Мейрамхана. {{doctor.user.get_full_name}}</strong><br>, уақыты <strong>{{appointment.date}}</strong></p>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<div class="col-lg-8 offset-lg-2">
+						<div class="invoice-content">
+							<div class="invoice-item">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="invoice-logo">
+											<img src="{% static 'img/logo.png' %}" alt="logo">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<p class="invoice-details">
+											<strong>Брон:</strong> #{{appointment.id}}
+										</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="invoice-item">
+
+							</div>
+
+							<div class="other-info">
+								<h4>Брондау ақпараты</h4>
+								<p class="text-muted mb-0">{{diagnoses}}</p>
+							</div>
+
+						</div>
+					</div>
+					</div>
+				</div>
+{% endblock %}
+
+
+
