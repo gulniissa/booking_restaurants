@@ -80,6 +80,14 @@
 												</div>
 												<div class="doc-info-cont">
 													<h4 class="doc-name"><a href="{% url 'diagnosis:restaurant_detail' restaurant.id %}">Мейрамхана - {{restaurant.user.get_full_name}}</a></h4>
+													<p class="doc-speciality">
+    <ul style="color: gray;">
+        {% for service in restaurant.services.all %}
+            <li>{{ service.name }}</li>
+        {% endfor %}
+    </ul>
+</p>
+
 													<h5 class="doc-department">
 														{% for specialty in restaurant.specialties.all %}
                                             				{{ specialty.name }}
@@ -101,6 +109,7 @@
 														<li><i class="far fa-comment"></i> {% get_restaurant_reviews_count restaurant_pk=restaurant.pk %}</li>
 														<li><i class="fas fa-map-marker-alt"></i> {{restaurant.city.name}}</li>
 														<li><i class="far fa-money-bill-alt"></i> {{restaurant.price}} <i class="fas fa-info-circle" data-bs-toggle="tooltip" aria-label="Lorem Ipsum" data-bs-original-title="Lorem Ipsum"></i></li>
+														<li><i class="fa-solid fa-chair" data-bs-toggle="tooltip" aria-label="Lorem Ipsum" data-bs-original-title="Lorem Ipsum"></i> {{restaurant.seats}}</li>
 													</ul>
 												</div>
 												<div class="clinic-booking">
