@@ -1,4 +1,4 @@
-{% extends 'base_doctor.html' %}
+{% extends 'base_restaurant.html' %}
 {% load static %}
 {% block content %}
 <div class="breadcrumb-bar">
@@ -11,14 +11,14 @@
 				<div class="widget-profile pro-widget-content">
 					<div class="profile-info-widget">
 						<a href="#" class="booking-doc-img">
-							<img src="{% static 'img/patient_logo.png' %}" alt="User Image">
+							<img src="{% static 'img/guest_logo.png' %}" alt="User Image">
 						</a>
 						<div class="profile-det-info">
 							<h3>{{user.get_full_name}}</h3>
-							<div class="patient-details">
-								<h5>User Role: {% if receiver.is_company %} Doctor {% else %} Patient {% endif %}</h5>
+							<div class="guest-details">
+								<h5>User Role: {% if receiver.is_company %} Restaurant {% else %} Guest {% endif %}</h5>
 								{% if receiver.is_company %}
-								<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> {{receiver.doctor.city}}</h5>
+								<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> {{receiver.restaurant.city}}</h5>
 								{% endif %}
 							</div>
 						</div>
@@ -35,7 +35,7 @@
 				<div class="doc-review review-listing custom-edit-service">
 					<div class="row mb-5">
 						<div class="col-auto">
-							<a class="btn btn-primary btn-sm" href="{% url 'diagnosis:create_doctor_request' %}"><i class="fas fa-plus me-1"></i>Create Donor Request</a>
+							<a class="btn btn-primary btn-sm" href="{% url 'diagnosis:create_restaurant_request' %}"><i class="fas fa-plus me-1"></i>Create Donor Request</a>
 						</div>
 					</div>
 
@@ -53,7 +53,7 @@
                                 {% for request in all_requests %}
                                 <div class="card">
                                     <div class="card-body">
-                                        <div class="doctor-widget">
+                                        <div class="restaurant-widget">
                                             <div class="doc-info-left">
                                                 <div class="doc-info-cont">
                                                     <h4 class="doc-name mb-2"><a href="pharmacy-details.html">{{ request.title }}</a></h4>
@@ -75,11 +75,11 @@
                                 {% endfor %}
                                 </div>
                                 <div class="tab-pane" id="solid-justified-tab2" role="tabpanel">
-                                {% if doctor_own_requests %}
-                                    {% for request in doctor_own_requests %}
+                                {% if restaurant_own_requests %}
+                                    {% for request in restaurant_own_requests %}
                                     <div class="card">
                                         <div class="card-body">
-                                            <div class="doctor-widget">
+                                            <div class="restaurant-widget">
                                                 <div class="doc-info-left">
                                                     <div class="doc-info-cont">
                                                         <h4 class="doc-name mb-2"><a href="pharmacy-details.html">{{ request.title }}</a></h4>
@@ -92,9 +92,9 @@
                                                                 <p class="doc-location mb-2"></p>
                                                                 <h4>Responses:</h4>
                                                                 <ul>
-                                                                    {% for response in request.donorrequest_set.all %}
-                                                                    <li>{{ response.donor_profile.patient.user.get_full_name }} - {{ response.created_at }}<br>
-                                                                        {{ response.donor_profile.patient.email }} - {{ response.donor_profile.patient.phone_number }}</li>
+                                                                    {% for response in request.clientrequest_set.all %}
+                                                                    <li>{{ response.client_profile.guest.user.get_full_name }} - {{ response.created_at }}<br>
+                                                                        {{ response.client_profile.guest.email }} - {{ response.client_profile.guest.phone_number }}</li>
                                                                     {% empty %}
                                                                     <li>There are no responses to this request yet.</li>
                                                                     {% endfor %}
@@ -105,8 +105,8 @@
                                                 </div>
                                                 <div class="doc-info-right">
                                                     <div class="clinic-booking">
-                                                        <a class="apt-btn" href="{% url 'diagnosis:edit_doctor_request' request.id %}">Edit</a>
-                                                        <a class="btn btn-danger" href="{% url 'diagnosis:delete_doctor_request' request.id %}" onclick="return confirm('Are you sure?');">Delete</a>
+                                                        <a class="apt-btn" href="{% url 'diagnosis:edit_restaurant_request' request.id %}">Edit</a>
+                                                        <a class="btn btn-danger" href="{% url 'diagnosis:delete_restaurant_request' request.id %}" onclick="return confirm('Are you sure?');">Delete</a>
                                                     </div>
                                                 </div>
                                             </div>

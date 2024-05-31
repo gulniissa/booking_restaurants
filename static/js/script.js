@@ -459,7 +459,7 @@ Version      : 1.3
 		})
 	}
 
-	// Our Doctor
+	// Our Restaurant
 	if ($('.owl-carousel.our-slider-thirteen').length > 0) {
 		$('.owl-carousel.our-slider-thirteen').owlCarousel({
 			loop: true,
@@ -490,10 +490,10 @@ Version      : 1.3
 		})
 	}
 
-	// Doctor Slider
+	// Restaurant Slider
 
-	if ($('.owl-carousel.doctor-slider-fifteen').length > 0) {
-		$('.owl-carousel.doctor-slider-fifteen').owlCarousel({
+	if ($('.owl-carousel.restaurant-slider-fifteen').length > 0) {
+		$('.owl-carousel.restaurant-slider-fifteen').owlCarousel({
 			loop: true,
 			margin: 24,
 			dots: false,
@@ -553,7 +553,7 @@ Version      : 1.3
 		})
 	}
 
-	// Doctor Slider
+	// Restaurant Slider
 
 	if ($('.owl-carousel.pharmacy-slider-fifteen').length > 0) {
 		$('.owl-carousel.pharmacy-slider-fifteen').owlCarousel({
@@ -710,10 +710,10 @@ Version      : 1.3
 		})
 	}
 
-	// Doctors Slider
+	// Restaurants Slider
 
-	if ($('.owl-carousel.doctor-slider-one').length > 0) {
-		$('.owl-carousel.doctor-slider-one').owlCarousel({
+	if ($('.owl-carousel.restaurant-slider-one').length > 0) {
+		$('.owl-carousel.restaurant-slider-one').owlCarousel({
 			loop: true,
 			margin: 24,
 			dots: false,
@@ -1043,8 +1043,8 @@ Version      : 1.3
 		});
 	}
 
-	if ($('.doctor-slider').length > 0) {
-		$('.doctor-slider').slick({
+	if ($('.restaurant-slider').length > 0) {
+		$('.restaurant-slider').slick({
 			dots: false,
 			autoplay: false,
 			infinite: true,
@@ -1249,7 +1249,7 @@ Version      : 1.3
 		});
 	}
 
-	//book doctor slider
+	//book restaurant slider
 	if ($('.book-slider').length > 0) {
 		$('.book-slider').slick({
 			dots: false,
@@ -1562,8 +1562,8 @@ Version      : 1.3
 			}
 		})
 	}
-	if ($('.owl-carousel.our-doctors').length > 0) {
-		$('.owl-carousel.our-doctors').owlCarousel({
+	if ($('.owl-carousel.our-restaurants').length > 0) {
+		$('.owl-carousel.our-restaurants').owlCarousel({
 			loop: true,
 			margin: 15,
 			dots: false,
@@ -2477,7 +2477,7 @@ Version      : 1.3
 	$(document).on("click",".delete_schedule",function () {
 		$(this).parent().hide();
 	});
-	// Doctor Signup Wizard
+	// Restaurant Signup Wizard
 
 	let progressVal = 0;
 	let businessType = 0;
@@ -2628,10 +2628,10 @@ Version      : 1.3
 		})
 	}
 
-	// Doctor Consulting Slider
+	// Restaurant Consulting Slider
 
-	if ($('.doctor-consulting-slider').length > 0) {
-		$('.doctor-consulting-slider').owlCarousel({
+	if ($('.restaurant-consulting-slider').length > 0) {
+		$('.restaurant-consulting-slider').owlCarousel({
 			loop: false,
 			margin: 15,
 			dots: false,
@@ -2906,9 +2906,9 @@ Version      : 1.3
 	// Video Player
 
     $('.treatment-video a').on('click', function () {
-	    var currentVideo = $(this).parent().find(".doctor-treatment-video").get(0);
-	    var allVideos = $(".doctor-treatment-video");
-	    $(this).parent().find(".doctor-treatment-video").toggleClass('active');
+	    var currentVideo = $(this).parent().find(".restaurant-treatment-video").get(0);
+	    var allVideos = $(".restaurant-treatment-video");
+	    $(this).parent().find(".restaurant-treatment-video").toggleClass('active');
 	    $(this).toggleClass('active');
 	    allVideos.each(function(){
 	       if (currentVideo != this)

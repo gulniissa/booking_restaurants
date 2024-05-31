@@ -1,7 +1,7 @@
 from django import forms
 
 from mediog.settings import BASE_DIR
-from .models import PreliminaryDiagnosis, Rating, User, Doctor, Patient, Specialty, Service, Dishes
+from .models import PreliminaryDiagnosis, Rating, User, Restaurant, Guest, Specialty, Service, Dishes
 from django.contrib.auth.forms import UserCreationForm
 
 
@@ -32,7 +32,7 @@ class RatingForm(forms.ModelForm):
     class Meta:
         model = Rating
         fields = ['rating', 'text']
-        exclude = ('patient', 'doctor')
+        exclude = ('guest', 'restaurant')
 
 
 class UserRegisterForm(UserCreationForm):
@@ -50,29 +50,29 @@ class UserRegisterForm(UserCreationForm):
 
 
 
-class DoctorProfileForm(forms.ModelForm):
+class RestaurantProfileForm(forms.ModelForm):
     class Meta:
-        model = Doctor
+        model = Restaurant
         fields = ['photo', 'about', 'license', 'identification_document', 'phone_number', 'specialties']
         widgets = {'specialties': forms.CheckboxSelectMultiple}
 
 
-class PatientProfileForm(forms.ModelForm):
+class GuestProfileForm(forms.ModelForm):
     class Meta:
-        model = Patient
+        model = Guest
         fields = ['email', 'phone_number', 'identification_number']
 
 
-class PatientSearchForm(forms.Form):
+class GuestSearchForm(forms.Form):
     identification_number = forms.CharField(max_length=12, required=False, label='ИИН')
     period = forms.ChoiceField(choices=[('today', 'На сегодня'), ('next_week', 'На следующую неделю'), ('next_month', 'На следующий месяц')], required=False, label='Период')
 
 
-from .models import DoctorRequest
+from .models import RestaurantRequest
 
-class DoctorRequestForm(forms.ModelForm):
+class RestaurantRequestForm(forms.ModelForm):
     class Meta:
-        model = DoctorRequest
+        model = RestaurantRequest
         fields = ['title', 'description']
 
 from .models import Comment
@@ -90,9 +90,9 @@ from .models import Post
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['content', 'photo', 'for_doctors']
+        fields = ['content', 'photo', 'for_restaurants']
         widgets = {
             'content': forms.Textarea(attrs={'class': 'form-control'}),
             'photo': forms.FileInput(attrs={'class': 'form-control'}),
-            'for_doctors': forms.CheckboxInput(attrs={'class': 'form-check-input'})
+            'for_restaurants': forms.CheckboxInput(attrs={'class': 'form-check-input'})
         }

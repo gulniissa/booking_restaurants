@@ -104,53 +104,53 @@
     <div class="container">
         <div class="card">
             <div class="card-body">
-                <div class="doctor-widget">
+                <div class="restaurant-widget">
                     <div class="doc-info-left">
-                        <div class="doctor-img">
-                            <a href="{% url 'diagnosis:doctor_detail' doctor.id %}">
-                                <img src="{{doctor.photo.url}}" class="img-fluid" alt="User Image">
+                        <div class="restaurant-img">
+                            <a href="{% url 'diagnosis:restaurant_detail' restaurant.id %}">
+                                <img src="{{restaurant.photo.url}}" class="img-fluid" alt="User Image">
                             </a>
                         </div>
                         <div class="doc-info-cont">
-                            <h4 class="doc-name"><a href="{% url 'diagnosis:doctor_detail' doctor.id %}">{{doctor.user.get_full_name}}</a></h4>
+                            <h4 class="doc-name"><a href="{% url 'diagnosis:restaurant_detail' restaurant.id %}">{{restaurant.user.get_full_name}}</a></h4>
                             <p class="doc-speciality">
-                                {% for specialty in doctor.specialties.all %}
+                                {% for specialty in restaurant.specialties.all %}
                                     {{ specialty.name }}
                                 {% endfor %}
                             </p>
-                            <p>{{doctor.phone_number}}</p>
+                            <p>{{restaurant.phone_number}}</p>
                             <div class="rating">
-                                {% render_stars doctor.pk %}
-                                <span class="d-inline-block average-rating">({% get_doctor_reviews_count doctor_pk=doctor.pk %})</span>
+                                {% render_stars restaurant.pk %}
+                                <span class="d-inline-block average-rating">({% get_restaurant_reviews_count restaurant_pk=restaurant.pk %})</span>
                             </div>
                             <div class="clinic-details">
-                                <p class="doc-location"><i class="fas fa-map-marker-alt"></i> {{doctor.city.name}}</p>
+                                <p class="doc-location"><i class="fas fa-map-marker-alt"></i> {{restaurant.city.name}}</p>
                             </div>
                         </div>
                     </div>
                     <div class="doc-info-right">
                         <div class="clini-infos">
                             <ul>
-                                <li><i class="far fa-thumbs-up"></i> {% get_doctor_rating doctor_pk=doctor.pk %}</li>
-                                <li><i class="far fa-comment"></i> {% get_doctor_reviews_count doctor_pk=doctor.pk %}</li>
-                                <li><i class="fas fa-map-marker-alt"></i> {{doctor.city.name}}</li>
-                                <li><i class="far fa-money-bill-alt"></i> {{doctor.price}} тг </li>
-                                <li><i class="fa-solid fa-chair"></i> {{doctor.seats}} </li>
+                                <li><i class="far fa-thumbs-up"></i> {% get_restaurant_rating restaurant_pk=restaurant.pk %}</li>
+                                <li><i class="far fa-comment"></i> {% get_restaurant_reviews_count restaurant_pk=restaurant.pk %}</li>
+                                <li><i class="fas fa-map-marker-alt"></i> {{restaurant.city.name}}</li>
+                                <li><i class="far fa-money-bill-alt"></i> {{restaurant.price}} тг </li>
+                                <li><i class="fa-solid fa-chair"></i> {{restaurant.seats}} </li>
                             </ul>
                         </div>
-                        <div class="doctor-action">
-                            <a href="mailto:{{doctor.user.email}}" class="btn btn-white fav-btn">
+                        <div class="restaurant-action">
+                            <a href="mailto:{{restaurant.user.email}}" class="btn btn-white fav-btn">
                                 <i class="fas fa-envelope"></i>
                             </a>
-                            <a href="tel:{{doctor.phone_number}}" class="btn btn-white call-btn">
+                            <a href="tel:{{restaurant.phone_number}}" class="btn btn-white call-btn">
                                 <i class="fas fa-phone"></i>
                             </a>
-                            <a href="{% url 'diagnosis:chat_view' doctor.user.id %}" class="btn btn-white msg-btn">
+                            <a href="{% url 'diagnosis:chat_view' restaurant.user.id %}" class="btn btn-white msg-btn">
                                 <i class="far fa-comment-alt"></i>
                             </a>
                         </div>
                         <div class="clinic-booking">
-                            <a class="apt-btn" href="{% url 'diagnosis:chat_view' doctor.user.id %}">Мейрамханамен байланыс</a>
+                            <a class="apt-btn" href="{% url 'diagnosis:chat_view' restaurant.user.id %}">Мейрамханамен байланыс</a>
                         </div>
                     </div>
                 </div>
@@ -160,7 +160,7 @@
             <div class="card-body">
         <h2>Қолжетімді қызметтер</h2>
         <ul class="services-list">
-            {% for service in doctor.services.all %}
+            {% for service in restaurant.services.all %}
                 <li>{{ service.name }}: {{ service.description }}</li>
             {% endfor %}
         </ul></div>
@@ -171,7 +171,7 @@
                 <h4 class="card-title">Фотолар</h4>
                 <div id="tourCarousel" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
-        {% for photo in doctor.photos.all %}
+        {% for photo in restaurant.photos.all %}
             <div class="carousel-item {% if forloop.first %}active{% endif %}">
                 <img src="{{ photo.photo.url }}" class="d-block w-100 h-100 carousel-image" alt="{{ photo.caption }}">
                 {% if photo.caption %}
@@ -194,7 +194,12 @@
             </div>
         </div>
         <!-- Конец карусели -->
-
+        <div class="card">
+            <div class="card-body">
+        <h2>Адрес</h2>
+        <div id="map"></div>
+            </div>
+            </div>
         <div class="card">
             <div class="card-body pt-0">
                 <nav class="user-tabs mb-4">
@@ -216,13 +221,14 @@
                             <div class="col-md-12 col-lg-9">
                                 <div class="widget about-widget">
                                     <h4 class="widget-title">Мейрамхана жайлы</h4>
-                                    <p>{{doctor.about}}</p>
-                                    <div id="map"></div>
+                                    <p>{{restaurant.about}}</p>
+
 
 
                                 </div>
                             </div>
                         </div>
+
                     </div>
                     <div role="tabpanel" id="doc_locations" class="tab-pane fade">
                         <div class="location-list">
@@ -236,7 +242,7 @@
             <div class="time-slot">
                 <ul class="clearfix">
                     <li>
-                        <form action="{% url 'diagnosis:patient_form' doctor.id %}" method="GET" class="mx-center">
+                        <form action="{% url 'diagnosis:guest_form' restaurant.id %}" method="GET" class="mx-center">
                             {% csrf_token %}
                             <div class="mb-3">
                                 <label for="selected_date" class="form-label">Таңдаңыз күн</label>
@@ -265,10 +271,10 @@
                                 {% for rating in ratings %}
                                 <li>
                                     <div class="comment">
-                                        <img class="avatar avatar-sm rounded-circle" alt="User Image" src="{% static 'img/patient_logo.png' %}">
+                                        <img class="avatar avatar-sm rounded-circle" alt="User Image" src="{% static 'img/guest_logo.png' %}">
                                         <div class="comment-body">
                                             <div class="meta-data">
-                                                <span class="comment-author">{{rating.patient.user.username}}</span>
+                                                <span class="comment-author">{{rating.guest.user.username}}</span>
                                                 <span class="comment-date">{{rating.date}}</span>
                                                 <div class="review-count rating">
                                                     {% render_stars_for_detail_page rating.rating %}
@@ -289,8 +295,8 @@
                             </div>
                         </div>
                         <div class="write-review">
-                            <h4>Пікір қалдырыңыз <strong>{{doctor.user.get_full_name}}</strong></h4>
-                            <form action="{% url 'diagnosis:doctor_detail' doctor.id %}" method="post">
+                            <h4>Пікір қалдырыңыз <strong>{{restaurant.user.get_full_name}}</strong></h4>
+                            <form action="{% url 'diagnosis:restaurant_detail' restaurant.id %}" method="post">
                                 {% csrf_token %}
                                 <div class="mb-3">
                                     <label class="mb-2">Пікір</label>

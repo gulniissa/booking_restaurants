@@ -1,4 +1,4 @@
-{% extends 'base_doctor.html' %}
+{% extends 'base_restaurant.html' %}
 {% load static %}
 {% block content %}
 
@@ -17,20 +17,20 @@
 									<div class="pro-widget-content">
 										<div class="profile-info-widget">
 											<a href="#" class="booking-doc-img">
-												<img src="{% static 'img/patient_logo.png' %}" alt="User Image">
+												<img src="{% static 'img/guest_logo.png' %}" alt="User Image">
 											</a>
 											<div class="profile-det-info">
-												<h3>{{ appointment.patient.user.get_full_name }}</h3>
-												<div class="patient-details">
-													<h5><b>Клиент ЖСН :</b> {{ appointment.patient.identification_number }}</h5>
+												<h3>{{ appointment.guest.user.get_full_name }}</h3>
+												<div class="guest-details">
+													<h5><b>Клиент ЖСН :</b> {{ appointment.guest.identification_number }}</h5>
 												</div>
 											</div>
 										</div>
 									</div>
-									<div class="patient-info">
+									<div class="guest-info">
 										<ul>
-											<li>Телефон <span>{{ appointment.patient.phone_number }}</span></li>
-											<li>Email <span>{{ appointment.patient.email }}</span></li>
+											<li>Телефон <span>{{ appointment.guest.phone_number }}</span></li>
+											<li>Email <span>{{ appointment.guest.email }}</span></li>
 										</ul>
 									</div>
 								</div>
@@ -71,7 +71,7 @@
 																<tbody>
 																	<tr>
 																		<td>{{ appointment.date }}</td>
-																		<td>{{ appointment.doctor.user.get_full_name }}</td>
+																		<td>{{ appointment.restaurant.user.get_full_name }}</td>
 																		<td>{{ appointment.get_status_display }}</td>
 																		<td>
                                                                         <form action="{% url 'diagnosis:change_appointment_status' appointment.id 'confirmed' %}" method="post">
@@ -86,7 +86,7 @@
                                                                         </form>
                                                                         </td>
                                                                         <td>
-                                                                            <a href="{% url 'diagnosis:chat_view' appointment.patient.user.id %}">Чат</a>
+                                                                            <a href="{% url 'diagnosis:chat_view' appointment.guest.user.id %}">Чат</a>
                                                                         </td>
 																	</tr>
 																</tbody>
@@ -114,7 +114,7 @@
 																		<td>{{ diagnosis_history.date }}</td>
 																		<td>{{ diagnosis_history.text }}</td>
 																		<td>
-																			{{ diagnosis_history.patient_text }}
+																			{{ diagnosis_history.guest_text }}
 																		</td>
 																	</tr>
                                                                 </tbody>

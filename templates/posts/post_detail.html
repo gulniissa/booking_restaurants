@@ -1,4 +1,4 @@
-{% extends 'base_doctor.html' %}
+{% extends 'base_restaurant.html' %}
 
 {% block content %}
 <div class="breadcrumb-bar">
@@ -17,12 +17,12 @@
 											<ul>
 												<li>
 													<div class="post-author">
-														<a href="doctor-profile.html"><img src="{{object.user.doctor.photo.url}}" alt="Post Author"> <span>Мейрамхана</span></a>
+														<a href="restaurant-profile.html"><img src="{{object.user.restaurant.photo.url}}" alt="Post Author"> <span>Мейрамхана</span></a>
 													</div>
 												</li>
 												<li><i class="far fa-calendar"></i>{{object.created_at}}</li>
 												<li><i class="far fa-comments"></i>{{ object.comments_count }} пікірлер</li>
-												<li><i class="fa fa-tags"></i>{% if object.for_doctors %} Мейрамхана {% else %} клиенттерге {% endif %}</li>
+												<li><i class="fa fa-tags"></i>{% if object.for_restaurants %} Мейрамхана {% else %} клиенттерге {% endif %}</li>
 											</ul>
 										</div>
 									</div>
@@ -40,7 +40,7 @@
 											<li>
 												<div class="comment">
 													<div class="comment-author">
-														<img class="avatar" alt="Michelle Fairfax" src="{{comment.user.doctor.photo.url}}">
+														<img class="avatar" alt="Michelle Fairfax" src="{{comment.user.restaurant.photo.url}}">
 													</div>
 													<div class="comment-block">
 														<span class="comment-by">

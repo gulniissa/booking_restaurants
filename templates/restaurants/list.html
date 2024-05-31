@@ -18,7 +18,7 @@
 									<h4 class="card-title mb-0">Іздеу</h4>
 								</div>
 								<div class="card-body">
-									<form action="{% url 'diagnosis:doctor_list' %}" method="get">
+									<form action="{% url 'diagnosis:restaurant_list' %}" method="get">
 										<div class="filter-widget">
 											<div>
 												<label for="">Мейрамхана атауы</label>
@@ -55,47 +55,47 @@
 								</div>
 							</div><div class="resize-sensor" style="position: absolute; inset: 0px; overflow: hidden; z-index: -1; visibility: hidden;"><div class="resize-sensor-expand" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0px; top: 0px; transition: all 0s ease 0s; width: 295px; height: 1702px;"></div></div><div class="resize-sensor-shrink" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0; top: 0; transition: 0s; width: 200%; height: 200%"></div></div></div></div></div>
 							<div class="col-md-12 col-lg-8 col-xl-9">
-							{% for doctor in doctors %}
+							{% for restaurant in restaurants %}
 								<div class="card">
 									<div class="card-body">
-										<div class="doctor-widget">
+										<div class="restaurant-widget">
 											<div class="doc-info-left">
-												<div class="doctor-img">
-													<a href="{% url 'diagnosis:doctor_detail' doctor.id %}">
-														<img src="{{doctor.photo.url}}" class="img-fluid" alt="User Image">
+												<div class="restaurant-img">
+													<a href="{% url 'diagnosis:restaurant_detail' restaurant.id %}">
+														<img src="{{restaurant.photo.url}}" class="img-fluid" alt="User Image">
 													</a>
 												</div>
 												<div class="doc-info-cont">
-													<h4 class="doc-name"><a href="{% url 'diagnosis:doctor_detail' doctor.id %}">Мейрамхана - {{doctor.user.get_full_name}}</a></h4>
+													<h4 class="doc-name"><a href="{% url 'diagnosis:restaurant_detail' restaurant.id %}">Мейрамхана - {{restaurant.user.get_full_name}}</a></h4>
 													<p class="doc-speciality">
-														{{doctor.about}}
+														{{restaurant.about}}
 													</p>
 													<h5 class="doc-department">
-														{% for specialty in doctor.specialties.all %}
+														{% for specialty in restaurant.specialties.all %}
                                             				{{ specialty.name }}
                                        					{% endfor %}
 													</h5>
 													<div class="rating">
-														{% render_stars doctor.pk %}
-                                        				<span class="d-inline-block average-rating">({% get_doctor_reviews_count doctor_pk=doctor.pk %})</span>
+														{% render_stars restaurant.pk %}
+                                        				<span class="d-inline-block average-rating">({% get_restaurant_reviews_count restaurant_pk=restaurant.pk %})</span>
 													</div>
 													<div class="clinic-details">
-														<p class="doc-location"><i class="fas fa-map-marker-alt"></i>{{doctor.city.name}}</p>
+														<p class="doc-location"><i class="fas fa-map-marker-alt"></i>{{restaurant.city.name}}</p>
 													</div>
 												</div>
 											</div>
 											<div class="doc-info-right">
 												<div class="clini-infos">
 													<ul>
-														<li><i class="far fa-thumbs-up"></i> {% get_doctor_rating doctor_pk=doctor.pk %}</li>
-														<li><i class="far fa-comment"></i> {% get_doctor_reviews_count doctor_pk=doctor.pk %}</li>
-														<li><i class="fas fa-map-marker-alt"></i> {{doctor.city.name}}</li>
-														<li><i class="far fa-money-bill-alt"></i> {{doctor.price}} <i class="fas fa-info-circle" data-bs-toggle="tooltip" aria-label="Lorem Ipsum" data-bs-original-title="Lorem Ipsum"></i></li>
+														<li><i class="far fa-thumbs-up"></i> {% get_restaurant_rating restaurant_pk=restaurant.pk %}</li>
+														<li><i class="far fa-comment"></i> {% get_restaurant_reviews_count restaurant_pk=restaurant.pk %}</li>
+														<li><i class="fas fa-map-marker-alt"></i> {{restaurant.city.name}}</li>
+														<li><i class="far fa-money-bill-alt"></i> {{restaurant.price}} <i class="fas fa-info-circle" data-bs-toggle="tooltip" aria-label="Lorem Ipsum" data-bs-original-title="Lorem Ipsum"></i></li>
 													</ul>
 												</div>
 												<div class="clinic-booking">
-													<a class="view-pro-btn" href="{% url 'diagnosis:doctor_detail' doctor.id %}">Мейрамхана туралы</a>
-													<a class="apt-btn" href="{% url 'diagnosis:doctor_detail' doctor.id %}">Қазір брондау</a>
+													<a class="view-pro-btn" href="{% url 'diagnosis:restaurant_detail' restaurant.id %}">Мейрамхана туралы</a>
+													<a class="apt-btn" href="{% url 'diagnosis:restaurant_detail' restaurant.id %}">Қазір брондау</a>
 												</div>
 											</div>
 										</div>

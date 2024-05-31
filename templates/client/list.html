@@ -21,7 +21,7 @@
                                 </div>
                                 <ul class="list-group list-group-flush">
                                     {% for response in user_responses %}
-                                        <li class="list-group-item">{{ response.doctor_request.title }} <small>{{ response.created_at }}</small></li>
+                                        <li class="list-group-item">{{ response.restaurant_request.title }} <small>{{ response.created_at }}</small></li>
                                     {% endfor %}
                                 </ul>
                             </div>
@@ -33,7 +33,7 @@
                     {% for request in requests %}
 					<div class="card">
 						<div class="card-body">
-							<div class="doctor-widget">
+							<div class="restaurant-widget">
 								<div class="doc-info-left">
 									<div class="doc-info-cont">
 										<h4 class="doc-name mb-2"><a href="">{{ request.title }}</a></h4>

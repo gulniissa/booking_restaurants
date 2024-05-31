@@ -19,7 +19,7 @@
                         <h4 class="paitent-title">Брондау мәліметтері</h4>
                     </div>
                     <div class="paitent-appointment">
-                        <form method="post" action="{% url 'diagnosis:patient_form' doctor.pk %}">
+                        <form method="post" action="{% url 'diagnosis:guest_form' restaurant.pk %}">
     {% csrf_token %}
     <input type="hidden" value="{{ appointment_datetime|date:'Y-m-d H:i' }}" name="appointment_datetime">
     {{ form.as_p }}
@@ -41,23 +41,23 @@
                     </div>
                     <div class="card booking-card">
                         <div class="card-body booking-card-body">
-                            <div class="booking-doctor-details">
-                                <div class="booking-doctor-left">
-                                    <div class="booking-doctor-img">
-                                        <a href="doctor-profile.html">
-                                            <img src="{% static 'img/patient_logo.png' %}" alt="John Doe">
+                            <div class="booking-restaurant-details">
+                                <div class="booking-restaurant-left">
+                                    <div class="booking-restaurant-img">
+                                        <a href="restaurant-profile.html">
+                                            <img src="{% static 'img/guest_logo.png' %}" alt="John Doe">
                                         </a>
                                     </div>
-                                    <div class="booking-doctor-info">
-                                        <h4><a href="doctor-profile.html">{{ doctor.user.get_full_name }}</a></h4>
+                                    <div class="booking-restaurant-info">
+                                        <h4><a href="restaurant-profile.html">{{ restaurant.user.get_full_name }}</a></h4>
                                         <p>
-                                            {% for specialty in doctor.specialties.all %}
+                                            {% for specialty in restaurant.specialties.all %}
                                                 {{ specialty.name }}
                                             {% endfor %}
                                         </p>
                                     </div>
                                 </div>
-                                <div class="booking-doctor-right"></div>
+                                <div class="booking-restaurant-right"></div>
                             </div>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
                                         <li>Брондау күні: <span>{{ appointment_datetime }}</span></li>
                                     </ul>
                                 </div>
-                                <div class="booking-doctor-right">
+                                <div class="booking-restaurant-right">
                                     <p><i class="fas fa-circle-check"></i></p>
                                 </div>
                             </div>

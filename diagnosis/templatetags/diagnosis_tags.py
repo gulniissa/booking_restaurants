@@ -10,8 +10,8 @@ from django.utils.text import Truncator
 register = template.Library()
 
 @register.simple_tag
-def get_doctor_rating(doctor_pk):
-    average_rating = Rating.objects.filter(doctor=doctor_pk).aggregate(average_rating=Avg('rating', output_field=FloatField()))
+def get_restaurant_rating(restaurant_pk):
+    average_rating = Rating.objects.filter(restaurant=restaurant_pk).aggregate(average_rating=Avg('rating', output_field=FloatField()))
     return average_rating['average_rating'] if average_rating['average_rating'] is not None else 0
 
 
@@ -20,8 +20,8 @@ def year_range(start_year, end_year):
     return range(start_year, end_year + 1)
 
 @register.simple_tag
-def render_stars(doctor_pk):
-    rating = get_doctor_rating(doctor_pk)
+def render_stars(restaurant_pk):
+    rating = get_restaurant_rating(restaurant_pk)
     stars = ''
     for i in range(5):  # Предполагаем, что максимальный рейтинг - 5
         if i < rating:
@@ -41,8 +41,8 @@ def render_stars_for_detail_page(rating):
     return mark_safe(stars)
 
 @register.simple_tag
-def get_doctor_reviews_count(doctor_pk):
-    return Rating.objects.filter(doctor=doctor_pk).count()
+def get_restaurant_reviews_count(restaurant_pk):
+    return Rating.objects.filter(restaurant=restaurant_pk).count()
 
 
 @register.filter

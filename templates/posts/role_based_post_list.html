@@ -32,13 +32,13 @@
 									<span></span>
 								</span>
 							</a>
-							<a href="/diagnosis/doctor/list" class="navbar-brand logo">
+							<a href="/diagnosis/restaurant/list" class="navbar-brand logo">
 								<img src="{% static 'img/logo.png' %}" class="img-fluid" alt="Logo">
 							</a>
 						</div>
 						<div class="main-menu-wrapper">
 							<div class="menu-header">
-								<a href="/diagnosis/doctor/list" class="menu-logo">
+								<a href="/diagnosis/restaurant/list" class="menu-logo">
 									<img src="{% static 'img/logo.png' %}" class="img-fluid" alt="Logo">
 								</a>
 								<a id="menu_close" class="menu-close" href="javascript:void(0);">
@@ -46,9 +46,9 @@
 								</a>
 							</div>
 							<ul class="main-nav">
-								{% if user.is_company and user.is_authenticated and user.doctor.verified%}
-								<li class="has-submenu {% if request.path == '/diagnosis/doctor/list' %} active {% endif %}">
-									<a href="{% url 'diagnosis:doctor_dashboard' %}">Клиенттер</a>
+								{% if user.is_company and user.is_authenticated and user.restaurant.verified%}
+								<li class="has-submenu {% if request.path == '/diagnosis/restaurant/list' %} active {% endif %}">
+									<a href="{% url 'diagnosis:restaurant_dashboard' %}">Клиенттер</a>
 								</li>
 								<li class="has-submenu {% if request.path == '/diagnosis/role-based-post-list/' %} active {% endif %}">
 									<a href="{% url 'diagnosis:role_based_post_list' %}">Посттар</a>
@@ -56,13 +56,13 @@
 								{% endif %}
 
                                 {% if user.is_client and user.is_authenticated %}
-                                    <li class="has-submenu {% if request.path == '/diagnosis/doctor/list' %} active {% endif %}">
-                                        <a href="{% url 'diagnosis:doctor_list' %}">Мейрамханаларды іздеу</a>
+                                    <li class="has-submenu {% if request.path == '/diagnosis/restaurant/list' %} active {% endif %}">
+                                        <a href="{% url 'diagnosis:restaurant_list' %}">Мейрамханаларды іздеу</a>
 
-                                    <li class="has-submenu {% if request.path == '/diagnosis/doctor/list' %} active {% endif %}">
+                                    <li class="has-submenu {% if request.path == '/diagnosis/restaurant/list' %} active {% endif %}">
                                         <a href="{% url 'diagnosis:diagnosis_history' %}">Менің брондарым </a>
                                     </li>
-                                    <li class="has-submenu {% if request.path == '/diagnosis/doctor/list' %} active {% endif %}">
+                                    <li class="has-submenu {% if request.path == '/diagnosis/restaurant/list' %} active {% endif %}">
                                         <a href="">Посттар </a>
                                     </li>
 								{% endif %}
@@ -71,13 +71,13 @@
 								<li class="nav-item dropdown has-arrow logged-item" >
 								<a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown" aria-expanded="false">
 								<span class="user-img">
-									<img class="rounded-circle" src="{% static 'img/patient_logo.png' %}" width="31" alt="Darren Elder">
+									<img class="rounded-circle" src="{% static 'img/guest_logo.png' %}" width="31" alt="Darren Elder">
 								</span>
 								</a>
 								<div class="dropdown-menu dropdown-menu-end" style="padding:5px;">
 								<div class="user-header">
 									<div class="avatar avatar-sm">
-										<img src="{% static 'img/patient_logo.png' %}" alt="User Image" class="avatar-img rounded-circle">
+										<img src="{% static 'img/guest_logo.png' %}" alt="User Image" class="avatar-img rounded-circle">
 									</div>
 									<div class="user-text">
 										<h6>{{user.get_full_name}}</h6>
@@ -122,12 +122,12 @@
 										<ul>
 											<li>
 												<div class="post-author">
-													<a href="doctor-profile.html"><img src="{{post.user.doctor.photo.url}}" alt="Post Author"> <span>{{post.user.get_full_name}}</span></a>
+													<a href="restaurant-profile.html"><img src="{{post.user.restaurant.photo.url}}" alt="Post Author"> <span>{{post.user.get_full_name}}</span></a>
 												</div>
 											</li>
 											<li><i class="far fa-clock"></i>{{post.created_at}}</li>
 											<li><i class="far fa-comments"></i>{{ post.comments_count }} Пікірлер</li>
-											<li><i class="fa fa-tags"></i>{% if post.for_doctors %} Мейрамхана {% else %} клиент {% endif %}</li>
+											<li><i class="fa fa-tags"></i>{% if post.for_restaurants %} Мейрамхана {% else %} клиент {% endif %}</li>
 										</ul>
 									</div>
 								</div>

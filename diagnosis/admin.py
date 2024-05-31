@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import User, Patient, Doctor, Specialty, PreliminaryDiagnosis, DiagnosisHistory, City, Appointment, DoctorPhoto
-from .models import DonorProfile, DoctorRequest, DonorRequest, Post, Comment, Service, Dishes
+from .models import User, Guest, Restaurant, Specialty, PreliminaryDiagnosis, DiagnosisHistory, City, Appointment, RestaurantPhoto
+from .models import ClientProfile, RestaurantRequest, DonorRequest, Post, Comment, Service, Dishes
 from leaflet.admin import LeafletGeoAdmin
 
 
@@ -10,22 +10,22 @@ class SpecialtyAdmin(admin.ModelAdmin):
     search_fields = ('name',)
 
 
-class DoctorPhotoInline(admin.TabularInline):
-    model = DoctorPhoto
+class RestaurantPhotoInline(admin.TabularInline):
+    model = RestaurantPhoto
     extra = 1
 
 
-@admin.register(Doctor)
-class DoctorAdmin(LeafletGeoAdmin, admin.ModelAdmin):
+@admin.register(Restaurant)
+class RestaurantAdmin(LeafletGeoAdmin, admin.ModelAdmin):
     list_display = ('user', 'verified', 'phone_number')
     list_filter = ('verified', 'specialties')
     search_fields = ('user__username', 'phone_number', 'specialties__name')
     filter_horizontal = ('specialties',)
-    inlines = [DoctorPhotoInline]
+    inlines = [RestaurantPhotoInline]
 
 
-@admin.register(Patient)
-class PatientAdmin(admin.ModelAdmin):
+@admin.register(Guest)
+class GuestAdmin(admin.ModelAdmin):
     list_display = ('user', 'email', 'phone_number')
     search_fields = ('user__username', 'email', 'phone_number')
 
@@ -50,8 +50,8 @@ admin.site.register(Appointment)
 
 # Администратор для модели Post
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'for_doctors', 'content_short')
-    list_filter = ('for_doctors', 'user')
+    list_display = ('id', 'user', 'for_restaurants', 'content_short')
+    list_filter = ('for_restaurants', 'user')
     search_fields = ('content',)
 
     def content_short(self, obj):
