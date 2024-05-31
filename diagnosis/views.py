@@ -1,3 +1,4 @@
+import pytz
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormView
@@ -49,17 +50,18 @@ class PreliminaryDiagnosisFormView(FormView):
         restaurant_pk = self.kwargs.get('restaurant_pk')
         context['restaurant_pk'] = restaurant_pk
         date_str = self.request.GET.get('date')
-        time_str = self.request.GET.get('time')
-        # slot_str = self.request.GET.get('slot').replace('.',
-        #                                                 '').upper()  # Ensure that 'AM' or 'PM' is capitalized and without dots
+        slot_str = self.request.GET.get('slot').replace('.',
+                                                        '').upper()  # Ensure that 'AM' or 'PM' is capitalized and without dots
         try:
             print(date_str, 'date_str.....')
-            print(time_str, 'slot_str.....')
-            def create_appointment_datetime(date_str, time_str):
-                # Преобразование строки даты и времени в объект datetime
-                appointment_datetime = datetime.strptime(f'{date_str} {time_str}', '%Y-%m-%d %H:%M')
-                return appointment_datetime
-            appointment_datetime = create_appointment_datetime(date_str, time_str)
+            print(slot_str, 'slot_str.....')
+            if 'AM' in slot_str or 'PM' in slot_str:
+                print("---------")
+                appointment_datetime = datetime.strptime(f'{date_str} {slot_str}', '%B %d, %Y %I %p')
+                print('starwet.....')
+            else:
+                appointment_datetime = datetime.strptime(f'{date_str} {slot_str}', '%Y-%m-%d %H:%M')
+            context['appointment_datetime'] = appointment_datetime
 
             context['appointment_datetime'] = appointment_datetime
         except ValueError:
@@ -169,6 +171,8 @@ class RestaurantListView(TemplateResponseMixin, View):
         max_price = request.GET.get('max_price')
         city_id = request.GET.get('city')
         date = request.GET.get('date')
+        min_seats = request.GET.get('min_seats')
+        time_filter = request.GET.get('time')
 
         restaurants = Restaurant.objects.all()
         if search_text:
@@ -185,10 +189,30 @@ class RestaurantListView(TemplateResponseMixin, View):
             restaurants = restaurants.filter(price__lte=max_price)
         if city_id:
             restaurants = restaurants.filter(city_id=city_id)
+
         if date:
-            date = datetime.strptime(date, '%Y-%m-%d').date()
-            restaurants = restaurants.annotate(appointment_count=Count('appointment', filter=Q(appointment__date__date=date)))
+            date_obj = datetime.strptime(date, '%Y-%m-%d').date()
+            restaurants = restaurants.annotate(
+                appointment_count=Count('appointment', filter=Q(appointment__date__date=date_obj)))
             restaurants = restaurants.filter(appointment_count__lt=2)
+
+            if time_filter:
+                if time_filter == '11am':
+                    time_obj = time(11, 0)
+                elif time_filter == '5pm':
+                    time_obj = time(17, 0)
+                else:
+                    time_obj = None
+
+                if time_obj:
+                    # Assuming appointments are stored in UTC
+                    timezone = pytz.UTC
+                    datetime_obj = datetime.combine(date_obj, time_obj).replace(tzinfo=timezone)
+                    restaurants = restaurants.exclude(
+                        Q(appointment__date__exact=datetime_obj)
+                    )
+        if min_seats:  # Apply filter for minimum seats
+            restaurants = restaurants.filter(seats__gte=min_seats)
 
         count = restaurants.count()
         cities = City.objects.all()
@@ -200,7 +224,9 @@ class RestaurantListView(TemplateResponseMixin, View):
             'min_price': min_price,
             'max_price': max_price,
             'city_id': city_id,
-            'date': date
+            'date': date,
+            'min_seats': min_seats,
+            'time_filter': time_filter
         })
 
 

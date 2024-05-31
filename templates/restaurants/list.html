@@ -46,10 +46,23 @@
 												<label for="">Күні бойынша таңдау</label>
 												<input type="date" class="form-control" name="date" placeholder="Күнді таңдаңыз">
 											</div>
+											<div>
+        <label for="time">Уакыты:</label>
+        <select id="time" name="time" onchange="ensureDateSelected()" class="form-control">
+            <option value="">Уакытты танданыз</option>
+            <option value="11am" {% if time_filter == '11am' %}selected{% endif %}>11 AM</option>
+            <option value="5pm" {% if time_filter == '5pm' %}selected{% endif %}>5 PM</option>
+        </select>
+    </div>
+											<div>
+											<label for="min_seats">Орын саны:</label>
+											<input type="number" class="form-control" id="min_seats" name="min_seats" value="{{ min_seats }}">
+										</div>
 										</div>
 										<div class="btn-search">
 											<button type="submit" class="btn w-100">Іздеу</button>
 										</div>
+
 									</form>
 
 								</div>
@@ -67,9 +80,6 @@
 												</div>
 												<div class="doc-info-cont">
 													<h4 class="doc-name"><a href="{% url 'diagnosis:restaurant_detail' restaurant.id %}">Мейрамхана - {{restaurant.user.get_full_name}}</a></h4>
-													<p class="doc-speciality">
-														{{restaurant.about}}
-													</p>
 													<h5 class="doc-department">
 														{% for specialty in restaurant.specialties.all %}
                                             				{{ specialty.name }}
@@ -106,5 +116,16 @@
 						</div>
 					</div>
 				</div>
+
+<script>
+function ensureDateSelected() {
+    var timeSelect = document.getElementById('time');
+    var dateInput = document.getElementById('date');
+    if (timeSelect.value && !dateInput.value) {
+        alert('Датаны уакытымен танданыз.');
+        timeSelect.value = '';
+    }
+}
+</script>
 
 {% endblock %}
