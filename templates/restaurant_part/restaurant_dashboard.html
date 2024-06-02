@@ -102,7 +102,7 @@
 									</div>
 								</div>
 							<!-- Форма для бронирования -->
-            <form action="{% url 'diagnosis:guest_form' restaurant.id %}" method="GET" class="mx-center">
+            <form action="{% url 'booking:guest_form' restaurant.id %}" method="GET" class="mx-center">
                 {% csrf_token %}
                 <div class="mb-3">
                     <label for="selected_date" class="form-label">Таңдаңыз күн</label>
@@ -163,14 +163,14 @@
 																		<tr>
 																			<td>
 																				<h2 class="table-avatar">
-																					<a href="{% url 'diagnosis:guest_detail' appointment.id %}">{{ appointment.guest.user.get_full_name }} <span>#{{ appointment.id }}</span></a>
+																					<a href="{% url 'booking:guest_detail' appointment.id %}">{{ appointment.guest.user.get_full_name }} <span>#{{ appointment.id }}</span></a>
 																				</h2>
 																			</td>
                                                                             <td>{{ appointment.guest.identification_number }}</td>
 																			<td>{{ appointment.date }}</td>
 																			<td>
 																				<div class="table-action">
-																					<a href="{% url 'diagnosis:guest_detail' appointment.id %}" class="btn btn-sm bg-info-light">
+																					<a href="{% url 'booking:guest_detail' appointment.id %}" class="btn btn-sm bg-info-light">
 																						<i class="far fa-eye"></i> Толығырақ
 																					</a>
 																				</div>

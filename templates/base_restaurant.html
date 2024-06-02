@@ -31,13 +31,13 @@
 									<span></span>
 								</span>
 							</a>
-							<a href="/diagnosis/restaurant/list" class="navbar-brand logo">
+							<a href="/booking/restaurant/list" class="navbar-brand logo">
 								<img src="{% static 'img/logo.png' %}" class="img-fluid" alt="Logo">
 							</a>
 						</div>
 						<div class="main-menu-wrapper">
 							<div class="menu-header">
-								<a href="/diagnosis/restaurant/list" class="menu-logo">
+								<a href="/booking/restaurant/list" class="menu-logo">
 									<img src="{% static 'img/logo.png' %}" class="img-fluid" alt="Logo">
 								</a>
 								<a id="menu_close" class="menu-close" href="javascript:void(0);">
@@ -46,11 +46,11 @@
 							</div>
 							<ul class="main-nav">
 								{% if user.is_authenticated and user.restaurant.verified%}
-								<li class="has-submenu {% if request.path == '/diagnosis/restaurant/list' %} active {% endif %}">
-									<a href="{% url 'diagnosis:restaurant_dashboard' %}">Клиенттер</a>
+								<li class="has-submenu {% if request.path == '/booking/restaurant/list' %} active {% endif %}">
+									<a href="{% url 'booking:restaurant_dashboard' %}">Клиенттер</a>
 								</li>
-								<li class="has-submenu {% if request.path == '/diagnosis/role-based-post-list/' %} active {% endif %}">
-									<a href="{% url 'diagnosis:role_based_post_list' %}">Посттар</a>
+								<li class="has-submenu {% if request.path == '/booking/role-based-post-list/' %} active {% endif %}">
+									<a href="{% url 'booking:role_based_post_list' %}">Посттар</a>
 								</li>
 								{% endif %}
 
@@ -80,7 +80,7 @@
 								{% else %}
 								<li class="login-link"><a href="{% url 'login' %}">Кіру</a></li>
 								<li class="register-btn">
-									<a href="{% url 'diagnosis:register' %}" class="btn reg-btn"><i class="fas fa-user"></i>Тіркелу</a>
+									<a href="{% url 'booking:register' %}" class="btn reg-btn"><i class="fas fa-user"></i>Тіркелу</a>
 								</li>
 								<li class="register-btn">
 									<a href="{% url 'login' %}" class="btn btn-primary log-btn"><i class="fas fa-lock"></i>Кіру</a>

@@ -1,7 +1,7 @@
 from django.db.models import Avg, FloatField
 from django import template
 from django.utils.safestring import mark_safe
-from diagnosis.models import Rating
+from booking.models import Rating
 from django.db.models.functions import Coalesce
 from django.utils.html import strip_tags
 from django.utils.text import Truncator

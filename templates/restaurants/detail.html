@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load diagnosis_tags %}
+{% load booking_tags %}
 
 {% block content %}
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -107,12 +107,12 @@
                 <div class="restaurant-widget">
                     <div class="doc-info-left">
                         <div class="restaurant-img">
-                            <a href="{% url 'diagnosis:restaurant_detail' restaurant.id %}">
+                            <a href="{% url 'booking:restaurant_detail' restaurant.id %}">
                                 <img src="{{restaurant.photo.url}}" class="img-fluid" alt="User Image">
                             </a>
                         </div>
                         <div class="doc-info-cont">
-                            <h4 class="doc-name"><a href="{% url 'diagnosis:restaurant_detail' restaurant.id %}">{{restaurant.user.get_full_name}}</a></h4>
+                            <h4 class="doc-name"><a href="{% url 'booking:restaurant_detail' restaurant.id %}">{{restaurant.user.get_full_name}}</a></h4>
                             <p class="doc-speciality">
                                 {% for specialty in restaurant.specialties.all %}
                                     {{ specialty.name }}
@@ -145,12 +145,12 @@
                             <a href="tel:{{restaurant.phone_number}}" class="btn btn-white call-btn">
                                 <i class="fas fa-phone"></i>
                             </a>
-                            <a href="{% url 'diagnosis:chat_view' restaurant.user.id %}" class="btn btn-white msg-btn">
+                            <a href="{% url 'booking:chat_view' restaurant.user.id %}" class="btn btn-white msg-btn">
                                 <i class="far fa-comment-alt"></i>
                             </a>
                         </div>
                         <div class="clinic-booking">
-                            <a class="apt-btn" href="{% url 'diagnosis:chat_view' restaurant.user.id %}">Мейрамханамен байланыс</a>
+                            <a class="apt-btn" href="{% url 'booking:chat_view' restaurant.user.id %}">Мейрамханамен байланыс</a>
                         </div>
                     </div>
                 </div>
@@ -274,7 +274,7 @@
                   {% for date, slots in slots.items %}
                   <li>
                     {% for slot in slots %}
-                    <a class="timing" href="{% url 'diagnosis:guest_form' restaurant.id %}?date={{ date }}&slot={{ slot }}">
+                    <a class="timing" href="{% url 'booking:guest_form' restaurant.id %}?date={{ date }}&slot={{ slot }}">
                       <span>{{ slot }}</span>
                     </a>
                     {% endfor %}
@@ -323,7 +323,7 @@
                         </div>
                         <div class="write-review">
                             <h4>Пікір қалдырыңыз <strong>{{restaurant.user.get_full_name}}</strong></h4>
-                            <form action="{% url 'diagnosis:restaurant_detail' restaurant.id %}" method="post">
+                            <form action="{% url 'booking:restaurant_detail' restaurant.id %}" method="post">
                                 {% csrf_token %}
                                 <div class="mb-3">
                                     <label class="mb-2">Пікір</label>

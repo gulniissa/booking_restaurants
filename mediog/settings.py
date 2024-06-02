@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'diagnosis',
+    'booking',
     'widget_tweaks',
     'ckeditor',
 ]
@@ -73,7 +73,7 @@ TEMPLATES = [
         },
     },
 ]
-AUTH_USER_MODEL = 'diagnosis.User'
+AUTH_USER_MODEL = 'booking.User'
 WSGI_APPLICATION = 'mediog.wsgi.application'
 
 
@@ -122,7 +122,7 @@ USE_I18N = True
 
 USE_TZ = True
 LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = 'diagnosis:role_redirect'
+LOGIN_REDIRECT_URL = 'booking:role_redirect'
 
 LOGOUT_REDIRECT_URL = 'login'
 

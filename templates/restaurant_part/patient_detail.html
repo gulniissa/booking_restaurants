@@ -74,19 +74,19 @@
 																		<td>{{ appointment.restaurant.user.get_full_name }}</td>
 																		<td>{{ appointment.get_status_display }}</td>
 																		<td>
-                                                                        <form action="{% url 'diagnosis:change_appointment_status' appointment.id 'confirmed' %}" method="post">
+                                                                        <form action="{% url 'booking:change_appointment_status' appointment.id 'confirmed' %}" method="post">
                                                                             {% csrf_token %}
                                                                             <button class="btn btn-sm bg-success-light" type="submit">Келді</button>
                                                                         </form>
                                                                         </td>
                                                                         <td>
-                                                                        <form action="{% url 'diagnosis:change_appointment_status' appointment.id 'pending' %}" method="post">
+                                                                        <form action="{% url 'booking:change_appointment_status' appointment.id 'pending' %}" method="post">
                                                                             {% csrf_token %}
                                                                             <button class="btn btn-sm bg-success-light" type="submit">Күтілуді</button>
                                                                         </form>
                                                                         </td>
                                                                         <td>
-                                                                            <a href="{% url 'diagnosis:chat_view' appointment.guest.user.id %}">Чат</a>
+                                                                            <a href="{% url 'booking:chat_view' appointment.guest.user.id %}">Чат</a>
                                                                         </td>
 																	</tr>
 																</tbody>
@@ -97,7 +97,7 @@
 											</div>
 
 											<div class="tab-pane fade" id="pres" role="tabpanel">
-                                                {% if diagnosis_history %}
+                                                {% if booking_history %}
 												<div class="card card-table mb-0">
 													<div class="card-body">
 														<div class="table-responsive">
@@ -111,10 +111,10 @@
 																</thead>
 																<tbody>
 																	<tr>
-																		<td>{{ diagnosis_history.date }}</td>
-																		<td>{{ diagnosis_history.text }}</td>
+																		<td>{{ booking_history.date }}</td>
+																		<td>{{ booking_history.text }}</td>
 																		<td>
-																			{{ diagnosis_history.guest_text }}
+																			{{ booking_history.guest_text }}
 																		</td>
 																	</tr>
                                                                 </tbody>

@@ -4,15 +4,15 @@ from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
 
-app_name = 'diagnosis'
+app_name = 'booking'
 
 urlpatterns = [
-    path('guest/form/<int:restaurant_pk>', PreliminaryDiagnosisFormView.as_view(), name='guest_form'),
+    path('guest/form/<int:restaurant_pk>', PreliminaryBookingFormView.as_view(), name='guest_form'),
     path("guest/payment", payment, name="payment"),
-    path('guest/diagnosis', GuestDiagnosisView.as_view(), name='guest_diagnosis'),
+    path('guest/booking', GuestBookingView.as_view(), name='guest_booking'),
     path('restaurant/list', RestaurantListView.as_view(), name='restaurant_list'),
     path('restaurant/detail/<restaurant_pk>', RestaurantDetailView.as_view(), name='restaurant_detail'),
-    path('diagnosis/history/', DiagnosisHistoryView.as_view(), name='diagnosis_history'),
+    path('booking/history/', BookingHistoryView.as_view(), name='booking_history'),
     path('register/', UserRegisterView.as_view(), name='register'),
     path('restaurant/profile/create/', RestaurantProfileCreateView.as_view(), name='restaurant_profile_create'),
     path('guest/profile/create/', GuestProfileCreateView.as_view(), name='guest_profile_create'),

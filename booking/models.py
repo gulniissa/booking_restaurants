@@ -96,7 +96,7 @@ class RestaurantPhoto(models.Model):
     photo = models.ImageField(upload_to="licenses/restoraunt")
 
 
-class PreliminaryDiagnosis(models.Model):
+class PreliminaryBooking(models.Model):
     # Основная информация
     full_name = models.CharField(max_length=100)
 
@@ -127,7 +127,7 @@ class Appointment(models.Model):
         return f"{self.guest} - {self.restaurant} on {self.date.strftime('%Y-%m-%d %H:%M')}"
 
 
-class DiagnosisHistory(models.Model):
+class BookingHistory(models.Model):
     user = models.ForeignKey(Guest, on_delete=models.CASCADE)
     text = models.TextField()
     guest_text = models.TextField()

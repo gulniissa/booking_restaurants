@@ -1,13 +1,13 @@
 from django import forms
 
 from mediog.settings import BASE_DIR
-from .models import PreliminaryDiagnosis, Rating, User, Restaurant, Guest, Specialty, Service, Dishes
+from .models import PreliminaryBooking, Rating, User, Restaurant, Guest, Specialty, Service, Dishes
 from django.contrib.auth.forms import UserCreationForm
 
 
-class PreliminaryDiagnosisForm(forms.ModelForm):
+class PreliminaryBookingForm(forms.ModelForm):
     class Meta:
-        model = PreliminaryDiagnosis
+        model = PreliminaryBooking
         fields = ('full_name', 'phone', 'symptoms', 'services', 'dishes')  # Включает все поля модели
 
         labels = {

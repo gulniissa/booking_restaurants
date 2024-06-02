@@ -35,7 +35,7 @@
 				<div class="doc-review review-listing custom-edit-service">
 					<div class="row mb-5">
 						<div class="col-auto">
-							<a class="btn btn-primary btn-sm" href="{% url 'diagnosis:create_restaurant_request' %}"><i class="fas fa-plus me-1"></i>Create Donor Request</a>
+							<a class="btn btn-primary btn-sm" href="{% url 'booking:create_restaurant_request' %}"><i class="fas fa-plus me-1"></i>Create Donor Request</a>
 						</div>
 					</div>
 
@@ -105,8 +105,8 @@
                                                 </div>
                                                 <div class="doc-info-right">
                                                     <div class="clinic-booking">
-                                                        <a class="apt-btn" href="{% url 'diagnosis:edit_restaurant_request' request.id %}">Edit</a>
-                                                        <a class="btn btn-danger" href="{% url 'diagnosis:delete_restaurant_request' request.id %}" onclick="return confirm('Are you sure?');">Delete</a>
+                                                        <a class="apt-btn" href="{% url 'booking:edit_restaurant_request' request.id %}">Edit</a>
+                                                        <a class="btn btn-danger" href="{% url 'booking:delete_restaurant_request' request.id %}" onclick="return confirm('Are you sure?');">Delete</a>
                                                     </div>
                                                 </div>
                                             </div>

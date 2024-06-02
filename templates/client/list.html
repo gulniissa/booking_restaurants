@@ -53,7 +53,7 @@
                                         {% if request.id in user_responses_ids %}
                                         <p>You have already responded to this request.</p>
                                         {% else %}
-                                        <a class="apt-btn" href="{% url 'diagnosis:respond_to_request' request.id %}">Reply</a>
+                                        <a class="apt-btn" href="{% url 'booking:respond_to_request' request.id %}">Reply</a>
                                         {% endif %}
 									</div>
 								</div>

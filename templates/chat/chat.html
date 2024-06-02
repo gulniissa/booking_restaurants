@@ -63,7 +63,7 @@
 											</ul>
 										</div>
 									</div>
-									<form method="post" action="{% url 'diagnosis:chat_view' receiver_id %}">
+									<form method="post" action="{% url 'booking:chat_view' receiver_id %}">
                                           {% csrf_token %}
 									<div class="chat-footer">
 										<div class="input-group">
@@ -135,7 +135,7 @@
 
   // AJAX-запрос для периодического обновления чата
   setInterval(function() {
-    fetch("{% url 'diagnosis:fetch_messages' receiver_id %}")
+    fetch("{% url 'booking:fetch_messages' receiver_id %}")
       .then(response => response.json())
       .then(data => {
         // Убедитесь, что chatBody не добавляет одно и то же сообщение более одного раза

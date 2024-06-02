@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load diagnosis_tags %}
+{% load booking_tags %}
 {% block content %}
 <div class="breadcrumb-bar">
 </div>
@@ -18,7 +18,7 @@
 									<h4 class="card-title mb-0">Іздеу</h4>
 								</div>
 								<div class="card-body">
-									<form action="{% url 'diagnosis:restaurant_list' %}" method="get">
+									<form action="{% url 'booking:restaurant_list' %}" method="get">
 										<div class="filter-widget">
 											<div>
 												<label for="">Мейрамхана атауы</label>
@@ -74,12 +74,12 @@
 										<div class="restaurant-widget">
 											<div class="doc-info-left">
 												<div class="restaurant-img">
-													<a href="{% url 'diagnosis:restaurant_detail' restaurant.id %}">
+													<a href="{% url 'booking:restaurant_detail' restaurant.id %}">
 														<img src="{{restaurant.photo.url}}" class="img-fluid" alt="User Image">
 													</a>
 												</div>
 												<div class="doc-info-cont">
-													<h4 class="doc-name"><a href="{% url 'diagnosis:restaurant_detail' restaurant.id %}">Мейрамхана - {{restaurant.user.get_full_name}}</a></h4>
+													<h4 class="doc-name"><a href="{% url 'booking:restaurant_detail' restaurant.id %}">Мейрамхана - {{restaurant.user.get_full_name}}</a></h4>
 													<p class="doc-speciality">
     <ul style="color: gray;">
         {% for service in restaurant.services.all %}
@@ -113,8 +113,8 @@
 													</ul>
 												</div>
 												<div class="clinic-booking">
-													<a class="view-pro-btn" href="{% url 'diagnosis:restaurant_detail' restaurant.id %}">Мейрамхана туралы</a>
-													<a class="apt-btn" href="{% url 'diagnosis:restaurant_detail' restaurant.id %}">Қазір брондау</a>
+													<a class="view-pro-btn" href="{% url 'booking:restaurant_detail' restaurant.id %}">Мейрамхана туралы</a>
+													<a class="apt-btn" href="{% url 'booking:restaurant_detail' restaurant.id %}">Қазір брондау</a>
 												</div>
 											</div>
 										</div>

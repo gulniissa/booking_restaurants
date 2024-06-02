@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% load static %}
-{% load diagnosis_tags %}
+{% load booking_tags %}
 
 {% block head %}
     <style>
@@ -111,10 +111,10 @@
                     </div>
                 </div>
                 <div class="payment-details-input-box">
-                    <form action="{% url 'diagnosis:payment' %}" method="POST">
+                    <form action="{% url 'booking:payment' %}" method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="diagnoses" value="{{diagnoses}}">
-                        <input type="hidden" name="diagnosis_histories" value="{{diagnosis_histories}}">
+                        <input type="hidden" name="booking_histories" value="{{booking_histories}}">
                         <input type="hidden" name="restaurant_id" value="{{restaurant_id}}">
                         <input type="hidden" name="restaurant" value="{{restaurant}}">
                         <input type="hidden" name="appointment" value="{{appointment}}">

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load diagnosis_tags %}
+{% load booking_tags %}
 {% block content %}
 <style>.form-check {
     display: grid;
@@ -19,7 +19,7 @@
                         <h4 class="paitent-title">Брондау мәліметтері</h4>
                     </div>
                     <div class="paitent-appointment">
-                        <form method="post" action="{% url 'diagnosis:guest_form' restaurant.pk %}">
+                        <form method="post" action="{% url 'booking:guest_form' restaurant.pk %}">
     {% csrf_token %}
     <input type="hidden" value="{{ appointment_datetime|date:'Y-m-d H:i' }}" name="appointment_datetime">
     {{ form.as_p }}

@@ -3,8 +3,8 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormView
 from django.views.generic.base import TemplateResponseMixin, View
-from .forms import PreliminaryDiagnosisForm, RatingForm, UserRegisterForm, RestaurantProfileForm, GuestProfileForm, RestaurantRequestForm
-from .models import DiagnosisHistory, Restaurant, Rating, User, Guest, Service, Dishes
+from .forms import PreliminaryBookingForm, RatingForm, UserRegisterForm, RestaurantProfileForm, GuestProfileForm, RestaurantRequestForm
+from .models import BookingHistory, Restaurant, Rating, User, Guest, Service, Dishes
 from .openai_integration import generate_text
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
@@ -23,25 +23,25 @@ def role_redirect(request):
     try:
         restaurant = Restaurant.objects.filter(user=user).first()
         if restaurant and restaurant.verified:
-            return redirect('diagnosis:restaurant_dashboard')
+            return redirect('booking:restaurant_dashboard')
         elif Guest.objects.filter(user=user).exists():
-            return redirect('diagnosis:restaurant_list')
+            return redirect('booking:restaurant_list')
         elif restaurant and not restaurant.verified:
-            return redirect('diagnosis:restaurant_verifying')
+            return redirect('booking:restaurant_verifying')
         else:
             if user.is_company:
-                return redirect('diagnosis:restaurant_profile_create')
+                return redirect('booking:restaurant_profile_create')
             elif user.is_client:
-                return redirect('diagnosis:guest_profile_create')
+                return redirect('booking:guest_profile_create')
     except Exception as e:
 
         return redirect('login')
 
 from django.utils.dateparse import parse_date
 from django.utils.dateparse import parse_datetime
-class PreliminaryDiagnosisFormView(FormView):
-    template_name = 'diagnosis/form.html'
-    form_class = PreliminaryDiagnosisForm
+class PreliminaryBookingFormView(FormView):
+    template_name = 'booking/form.html'
+    form_class = PreliminaryBookingForm
 
     def get_context_data(self, **kwargs):
         # Вызов базовой реализации, чтобы получить контекст
@@ -102,27 +102,27 @@ class PreliminaryDiagnosisFormView(FormView):
                 total_price += service.price
         pat = Guest.objects.get_or_create(user=self.request.user)
         appointment = Appointment.objects.create(guest=pat[0], restaurant=restaurant, date=appointment_datetime)
-        diagnosis_history = DiagnosisHistory.objects.create(
+        booking_history = BookingHistory.objects.create(
             user=self.request.user.guest,
             text=diagnoses,
             guest_text=diagnoses,
             appointment=appointment,
             total_price=total_price
         )
-        diagnosis_history.services.set(selected_services)
-        diagnosis_history.dishes.set(selected_dishes)
-        diagnosis_history.save()
+        booking_history.services.set(selected_services)
+        booking_history.dishes.set(selected_dishes)
+        booking_history.save()
         # Assign values to the many-to-many fields using set() method
-        diagnosis_histories = DiagnosisHistory.objects.filter(user=self.request.user.guest)
+        booking_histories = BookingHistory.objects.filter(user=self.request.user.guest)
 
         context = {
             'diagnoses': diagnoses,
-            'diagnosis_histories': diagnosis_histories,
+            'booking_histories': booking_histories,
             'restaurant_pk': restaurant_pk,
             'restaurant': restaurant,
             'appointment': appointment.pk,
         }
-        return render(self.request, template_name='diagnosis/payment.html', context=context)
+        return render(self.request, template_name='booking/payment.html', context=context)
 
 
 def payment(request):
@@ -131,21 +131,21 @@ def payment(request):
         restaurant_id = request.POST.get("restaurant_pk")
         restaurant = request.POST.get("restaurant")
         appointment = request.POST.get("appointment")
-        diagnosis_histories = DiagnosisHistory.objects.filter(user=request.user.guest)
+        booking_histories = BookingHistory.objects.filter(user=request.user.guest)
         appointment = Appointment.objects.get(id=appointment)
         context = {
             'diagnoses': diagnoses,
-            'diagnosis_histories': diagnosis_histories,
+            'booking_histories': booking_histories,
             'restaurant_pk': restaurant_id,
             'restaurant': restaurant,
             'appointment': appointment,
         }
 
-        return render(request, template_name='diagnosis/form_result.html', context=context)
+        return render(request, template_name='booking/form_result.html', context=context)
 
 
-class GuestDiagnosisView(TemplateResponseMixin, View):
-    template_name = 'diagnosis/form_result.html'
+class GuestBookingView(TemplateResponseMixin, View):
+    template_name = 'booking/form_result.html'
 
     def get(self, request):
         return self.render_to_response({})
@@ -294,12 +294,12 @@ class RestaurantDetailView(TemplateResponseMixin, View):
         form = RatingForm(request.POST)
         return self.render_to_response({'restaurant': restaurant, 'ratings': ratings, 'form': form})
 
-class DiagnosisHistoryView(TemplateResponseMixin, View):
-    template_name = 'diagnosis/result_history.html'
+class BookingHistoryView(TemplateResponseMixin, View):
+    template_name = 'booking/result_history.html'
 
     def get(self, request, **kwargs):
-        diagnosis_histories = DiagnosisHistory.objects.filter(user=self.request.user.guest)
-        return self.render_to_response({'diagnosis_histories': diagnosis_histories})
+        booking_histories = BookingHistory.objects.filter(user=self.request.user.guest)
+        return self.render_to_response({'booking_histories': booking_histories})
 
 from django.shortcuts import redirect
 
@@ -322,9 +322,9 @@ class UserRegisterView(CreateView):
         # Теперь self.user гарантированно существует
         print(self.user.is_company, '=========')
         if self.user.is_company:
-            return reverse_lazy('diagnosis:restaurant_profile_create')
+            return reverse_lazy('booking:restaurant_profile_create')
         elif self.user.is_client:
-            return reverse_lazy('diagnosis:guest_profile_create')
+            return reverse_lazy('booking:guest_profile_create')
         else:
             return reverse_lazy('login')
 
@@ -333,7 +333,7 @@ class RestaurantProfileCreateView(LoginRequiredMixin, CreateView):
     model = Restaurant
     form_class = RestaurantProfileForm
     template_name = 'registration/restaurant_profile_create.html'
-    success_url = reverse_lazy('diagnosis:octor_varifing')  # Предполагается, что у вас есть URL с именем 'home'
+    success_url = reverse_lazy('booking:octor_varifing')  # Предполагается, что у вас есть URL с именем 'home'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -343,13 +343,13 @@ class GuestProfileCreateView(LoginRequiredMixin, CreateView):
     model = Guest
     form_class = GuestProfileForm
     template_name = 'registration/guest_profile_create.html'
-    success_url = reverse_lazy('diagnosis:restaurant_list')
+    success_url = reverse_lazy('booking:restaurant_list')
 
     def form_valid(self, form):
         if Guest.objects.filter(user=self.request.user).exists():
             print(Guest.objects.filter(user=self.request.user), '++++++++++')
             messages.error(self.request, 'Профиль для данного пользователя уже существует.')
-            return redirect('diagnosis:guest_profile_create')
+            return redirect('booking:guest_profile_create')
         else:
             form.instance.user = self.request.user
             return super().form_valid(form)
@@ -403,7 +403,7 @@ class AppointmentDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         appointment = self.get_object()
-        context['diagnosis_history'] = DiagnosisHistory.objects.get(appointment=appointment)
+        context['booking_history'] = BookingHistory.objects.get(appointment=appointment)
         return context
 
 from django.http import HttpResponseRedirect
@@ -417,10 +417,10 @@ def change_appointment_status(request, appointment_id, new_status):
         appointment.status = new_status
         appointment.save()
         # Перенаправление обратно на детальную страницу пациента
-        return HttpResponseRedirect(reverse('diagnosis:guest_detail', args=[appointment.guest.id]))
+        return HttpResponseRedirect(reverse('booking:guest_detail', args=[appointment.guest.id]))
     else:
         # Возвращаем пользователя обратно, если метод не POST
-        return HttpResponseRedirect(reverse('diagnosis:guest_detail', args=[appointment.guest.id]))
+        return HttpResponseRedirect(reverse('booking:guest_detail', args=[appointment.guest.id]))
 
 
 from django.shortcuts import render, redirect
@@ -434,7 +434,7 @@ def chat_view(request, receiver_id):
         message_text = request.POST.get('message')
         receiver = User.objects.get(id=receiver_id)
         message = ChatMessage.objects.create(sender=request.user, receiver=receiver, text=message_text)
-        return redirect('diagnosis:chat_view', receiver_id=receiver_id)
+        return redirect('booking:chat_view', receiver_id=receiver_id)
     else:
         receiver = User.objects.get(id=receiver_id)
         messages = ChatMessage.objects.filter(sender=request.user, receiver__id=receiver_id) | \
@@ -466,7 +466,7 @@ def client_registration_view(request):
 
         # Создаем профиль донора
         ClientProfile.objects.create(guest=guest, blood_type=blood_type, age=age)
-        return redirect('diagnosis:client_registration_confirm')
+        return redirect('booking:client_registration_confirm')
 
     # Если GET-запрос, отображаем пустую форму
     return render(request, 'client/register.html')
@@ -513,10 +513,10 @@ def respond_to_restaurant_request(request, request_id):
     if not DonorRequest.objects.filter(client_profile=client_profile, restaurant_request=restaurant_request).exists():
         DonorRequest.objects.create(client_profile=client_profile, restaurant_request=restaurant_request)
         # Перенаправляем пользователя на страницу с подтверждением отклика или обратно к списку заявок
-        return redirect('diagnosis:restaurant_list')
+        return redirect('booking:restaurant_list')
     else:
         # Обработка случая, если пользователь уже откликался на заявку
-        return redirect('diagnosis:restaurant_list')
+        return redirect('booking:restaurant_list')
 
 
 @login_required
@@ -541,7 +541,7 @@ def restaurant_requests_list_restaurant_part(request):
 def create_restaurant_request(request):
     if not request.user.is_company:
         # Проверяем, что пользователь является доктором
-        return redirect('diagnosis:restaurant_requests_list')
+        return redirect('booking:restaurant_requests_list')
 
     if request.method == 'POST':
         form = RestaurantRequestForm(request.POST)
@@ -549,7 +549,7 @@ def create_restaurant_request(request):
             restaurant_request = form.save(commit=False)
             restaurant_request.restaurant = request.user.restaurant
             restaurant_request.save()
-            return redirect('diagnosis:restaurant_requests_list_restaurant_part')  # Перенаправляем на список заявок
+            return redirect('booking:restaurant_requests_list_restaurant_part')  # Перенаправляем на список заявок
     else:
         form = RestaurantRequestForm()
     return render(request, 'restaurant_part/client/create_restaurant_request.html', {'form': form})
@@ -561,7 +561,7 @@ def edit_restaurant_request(request, request_id):
         form = RestaurantRequestForm(request.POST, instance=restaurant_request)
         if form.is_valid():
             form.save()
-            return redirect('diagnosis:restaurant_requests_list_restaurant_part')  # Например, в список заявок
+            return redirect('booking:restaurant_requests_list_restaurant_part')  # Например, в список заявок
     else:
         form = RestaurantRequestForm(instance=restaurant_request)
     return render(request, 'restaurant_part/client/edit_restaurant_request.html', {'form': form})
@@ -570,7 +570,7 @@ def edit_restaurant_request(request, request_id):
 def delete_restaurant_request(request, request_id):
     restaurant_request = get_object_or_404(RestaurantRequest, id=request_id, restaurant=request.user.restaurant)
     restaurant_request.delete()
-    return redirect('diagnosis:restaurant_requests_list_restaurant_part')
+    return redirect('booking:restaurant_requests_list_restaurant_part')
 
 
 from django.views.generic import ListView
@@ -619,7 +619,7 @@ class PostDetailView(FormMixin, DetailView):
     form_class = CommentForm
 
     def get_success_url(self):
-        return reverse_lazy('diagnosis:post_detail', kwargs={'pk': self.object.pk})
+        return reverse_lazy('booking:post_detail', kwargs={'pk': self.object.pk})
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -646,7 +646,7 @@ class PostCreateView(CreateView):
     model = Post
     form_class = PostForm
     template_name = 'posts/post_form.html'
-    success_url = reverse_lazy('diagnosis:role_based_post_list')
+    success_url = reverse_lazy('booking:role_based_post_list')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -658,10 +658,10 @@ class PostUpdateView(UpdateView):
     model = Post
     form_class = PostForm
     template_name = 'posts/post_form.html'
-    success_url = reverse_lazy('diagnosis:role_based_post_list')
+    success_url = reverse_lazy('booking:role_based_post_list')
 
 class PostDeleteView(DeleteView):
     model = Post
     template_name = 'posts/post_confirm_delete.html'
-    success_url = reverse_lazy('diagnosis:role_based_post_list')
+    success_url = reverse_lazy('booking:role_based_post_list')
 

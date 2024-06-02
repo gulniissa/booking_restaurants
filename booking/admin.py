@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Guest, Restaurant, Specialty, PreliminaryDiagnosis, DiagnosisHistory, City, Appointment, RestaurantPhoto
+from .models import User, Guest, Restaurant, Specialty, PreliminaryBooking, BookingHistory, City, Appointment, RestaurantPhoto
 from .models import ClientProfile, RestaurantRequest, DonorRequest, Post, Comment, Service, Dishes
 from leaflet.admin import LeafletGeoAdmin
 
@@ -30,8 +30,8 @@ class GuestAdmin(admin.ModelAdmin):
     search_fields = ('user__username', 'email', 'phone_number')
 
 
-@admin.register(DiagnosisHistory)
-class DiagnosisHistoryAdmin(admin.ModelAdmin):
+@admin.register(BookingHistory)
+class BookingHistoryAdmin(admin.ModelAdmin):
     list_display = ('user', 'date')
     list_filter = ('date',)
     search_fields = ('user__username', 'text')

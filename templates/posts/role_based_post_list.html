@@ -1,5 +1,5 @@
 {% load static %}
-{% load diagnosis_tags %}
+{% load booking_tags %}
 <html lang="en" style="transform: none;"><head>
 	<meta charset="utf-8">
 	<title>Мейрамханаларды брондау</title>
@@ -32,13 +32,13 @@
 									<span></span>
 								</span>
 							</a>
-							<a href="/diagnosis/restaurant/list" class="navbar-brand logo">
+							<a href="/booking/restaurant/list" class="navbar-brand logo">
 								<img src="{% static 'img/logo.png' %}" class="img-fluid" alt="Logo">
 							</a>
 						</div>
 						<div class="main-menu-wrapper">
 							<div class="menu-header">
-								<a href="/diagnosis/restaurant/list" class="menu-logo">
+								<a href="/booking/restaurant/list" class="menu-logo">
 									<img src="{% static 'img/logo.png' %}" class="img-fluid" alt="Logo">
 								</a>
 								<a id="menu_close" class="menu-close" href="javascript:void(0);">
@@ -47,22 +47,22 @@
 							</div>
 							<ul class="main-nav">
 								{% if user.is_company and user.is_authenticated and user.restaurant.verified%}
-								<li class="has-submenu {% if request.path == '/diagnosis/restaurant/list' %} active {% endif %}">
-									<a href="{% url 'diagnosis:restaurant_dashboard' %}">Клиенттер</a>
+								<li class="has-submenu {% if request.path == '/booking/restaurant/list' %} active {% endif %}">
+									<a href="{% url 'booking:restaurant_dashboard' %}">Клиенттер</a>
 								</li>
-								<li class="has-submenu {% if request.path == '/diagnosis/role-based-post-list/' %} active {% endif %}">
-									<a href="{% url 'diagnosis:role_based_post_list' %}">Посттар</a>
+								<li class="has-submenu {% if request.path == '/booking/role-based-post-list/' %} active {% endif %}">
+									<a href="{% url 'booking:role_based_post_list' %}">Посттар</a>
 								</li>
 								{% endif %}
 
                                 {% if user.is_client and user.is_authenticated %}
-                                    <li class="has-submenu {% if request.path == '/diagnosis/restaurant/list' %} active {% endif %}">
-                                        <a href="{% url 'diagnosis:restaurant_list' %}">Мейрамханаларды іздеу</a>
+                                    <li class="has-submenu {% if request.path == '/booking/restaurant/list' %} active {% endif %}">
+                                        <a href="{% url 'booking:restaurant_list' %}">Мейрамханаларды іздеу</a>
 
-                                    <li class="has-submenu {% if request.path == '/diagnosis/restaurant/list' %} active {% endif %}">
-                                        <a href="{% url 'diagnosis:diagnosis_history' %}">Менің брондарым </a>
+                                    <li class="has-submenu {% if request.path == '/booking/restaurant/list' %} active {% endif %}">
+                                        <a href="{% url 'booking:booking_history' %}">Менің брондарым </a>
                                     </li>
-                                    <li class="has-submenu {% if request.path == '/diagnosis/restaurant/list' %} active {% endif %}">
+                                    <li class="has-submenu {% if request.path == '/booking/restaurant/list' %} active {% endif %}">
                                         <a href="">Посттар </a>
                                     </li>
 								{% endif %}
@@ -93,7 +93,7 @@
 								{% else %}
 								<li class="login-link"><a href="{% url 'login' %}">Кіру</a></li>
 								<li class="register-btn">
-									<a href="{% url 'diagnosis:register' %}" class="btn reg-btn"><i class="fas fa-user"></i>Тіркелу</a>
+									<a href="{% url 'booking:register' %}" class="btn reg-btn"><i class="fas fa-user"></i>Тіркелу</a>
 								</li>
 								<li class="register-btn">
 									<a href="{% url 'login' %}" class="btn btn-primary log-btn"><i class="fas fa-lock"></i>Кіру</a>
@@ -115,7 +115,7 @@
 							{% for post in posts %}
 							<div class="blog">
 								<div class="blog-image">
-									<a href="{% url 'diagnosis:post_detail' post.id %}"><img class="img-fluid" src="{{post.photo.url}}" alt="Post Image"></a>
+									<a href="{% url 'booking:post_detail' post.id %}"><img class="img-fluid" src="{{post.photo.url}}" alt="Post Image"></a>
 								</div>
 								<div class="blog-info clearfix">
 									<div class="post-left">
@@ -133,7 +133,7 @@
 								</div>
 								<div class="blog-content">
 									<p>{{post.content|truncatehtml:100|safe}}</p>
-									<a href="{% url 'diagnosis:post_detail' post.id %}" class="read-more">Толығырақ</a>
+									<a href="{% url 'booking:post_detail' post.id %}" class="read-more">Толығырақ</a>
 								</div>
 							</div>
 							{% endfor %}
@@ -144,7 +144,7 @@
 							<div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none; top: 0px; left: 833.656px;"><div class="card search-widget">
 								<div class="card-body">
 
-									<a href="{% url 'diagnosis:post_create' %}" class="btn w-100 btn-outline-info active">+ Жаңа пост</a>
+									<a href="{% url 'booking:post_create' %}" class="btn w-100 btn-outline-info active">+ Жаңа пост</a>
 								</div>
 							</div><div class="card post-widget">
 								<div class="card-header">
@@ -155,17 +155,17 @@
 										{% for user_post in user_posts %}
 										<li>
 											<div class="post-thumb">
-												<a href="{% url 'diagnosis:post_detail' user_post.id %}">
+												<a href="{% url 'booking:post_detail' user_post.id %}">
 													<img class="img-fluid" src="{{user_post.photo.url}}" alt="blog-image">
 												</a>
 											</div>
 											<div class="post-info">
 												<h4>
-													<a href="{% url 'diagnosis:post_detail' user_post.id %}">{{ user_post.content|truncatehtml:50|safe }}</a>
+													<a href="{% url 'booking:post_detail' user_post.id %}">{{ user_post.content|truncatehtml:50|safe }}</a>
 												</h4>
 												<p>{{user_post.created_at}}</p>
-												<a href="{% url 'diagnosis:post_edit' user_post.id %}">өңдеу</a>
-												<a href="{% url 'diagnosis:post_delete' user_post.id %}">өшіру</a>
+												<a href="{% url 'booking:post_edit' user_post.id %}">өңдеу</a>
+												<a href="{% url 'booking:post_delete' user_post.id %}">өшіру</a>
 
 											</div>
 										</li>

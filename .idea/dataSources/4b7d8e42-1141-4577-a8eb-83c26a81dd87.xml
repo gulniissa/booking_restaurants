@@ -3,9 +3,17 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.51">
     <root id="1">
       <DateStyle>mdy</DateStyle>
-      <IntrospectionStateNumber>1248</IntrospectionStateNumber>
+      <Grants>1||-9223372036854775808|c|G
+1||10|c|G
+1||10|C|G
+1||10|T|G
+13444||-9223372036854775808|c|G
+13444||10|c|G
+13444||10|C|G
+13444||10|T|G</Grants>
+      <IntrospectionStateNumber>1227</IntrospectionStateNumber>
       <ServerVersion>13.5</ServerVersion>
-      <StartupTime>1717338856</StartupTime>
+      <StartupTime>1717337579</StartupTime>
       <TimeZones>true ACDT
 true ACSST
 false ACST
@@ -1400,7 +1408,7 @@ true posixrules
 13161||10|C|G
 13161||-9223372036854775808|U|G
 13161||10|U|G</Grants>
-      <IntrospectionStateNumber>1248</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1227</IntrospectionStateNumber>
       <ObjectId>16384</ObjectId>
       <OwnerName>admin</OwnerName>
     </database>
@@ -6232,8 +6240,8 @@ unpackaged</AvailableUpdates>
 18822||10|t|G
 18822||10|D|G
 18822||10|w|G</Grants>
-      <IntrospectionStateNumber>1248</IntrospectionStateNumber>
-      <LastIntrospectionLocalTimestamp>2024-06-02.14:36:35</LastIntrospectionLocalTimestamp>
+      <IntrospectionStateNumber>1227</IntrospectionStateNumber>
+      <LastIntrospectionLocalTimestamp>2024-06-02.14:15:51</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>287</StateNumber>
       <OwnerName>admin</OwnerName>
@@ -16393,45 +16401,45 @@ unpackaged</AvailableUpdates>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>admin</OwnerName>
     </table>
-    <table id="1143" parent="284" name="booking_bookinghistory">
-      <ObjectId>87263</ObjectId>
-      <StateNumber>1236</StateNumber>
-      <AccessMethodId>2</AccessMethodId>
-      <OwnerName>admin</OwnerName>
-    </table>
-    <table id="1144" parent="284" name="booking_bookinghistory_dishes">
-      <ObjectId>87275</ObjectId>
-      <StateNumber>1239</StateNumber>
-      <AccessMethodId>2</AccessMethodId>
-      <OwnerName>admin</OwnerName>
-    </table>
-    <table id="1145" parent="284" name="booking_bookinghistory_services">
-      <ObjectId>87282</ObjectId>
-      <StateNumber>1242</StateNumber>
-      <AccessMethodId>2</AccessMethodId>
-      <OwnerName>admin</OwnerName>
-    </table>
-    <table id="1146" parent="284" name="booking_chatmessage">
+    <table id="1143" parent="284" name="booking_chatmessage">
       <ObjectId>87100</ObjectId>
       <StateNumber>1200</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>admin</OwnerName>
     </table>
-    <table id="1147" parent="284" name="booking_city">
+    <table id="1144" parent="284" name="booking_city">
       <ObjectId>87043</ObjectId>
       <StateNumber>1201</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>admin</OwnerName>
     </table>
-    <table id="1148" parent="284" name="booking_clientprofile">
+    <table id="1145" parent="284" name="booking_clientprofile">
       <ObjectId>87121</ObjectId>
       <StateNumber>1202</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>admin</OwnerName>
     </table>
-    <table id="1149" parent="284" name="booking_comment">
+    <table id="1146" parent="284" name="booking_comment">
       <ObjectId>87141</ObjectId>
       <StateNumber>1203</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>admin</OwnerName>
+    </table>
+    <table id="1147" parent="284" name="booking_diagnosishistory">
+      <ObjectId>87263</ObjectId>
+      <StateNumber>1204</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>admin</OwnerName>
+    </table>
+    <table id="1148" parent="284" name="booking_diagnosishistory_dishes">
+      <ObjectId>87275</ObjectId>
+      <StateNumber>1205</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>admin</OwnerName>
+    </table>
+    <table id="1149" parent="284" name="booking_diagnosishistory_services">
+      <ObjectId>87282</ObjectId>
+      <StateNumber>1206</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>admin</OwnerName>
     </table>
@@ -16465,9 +16473,9 @@ unpackaged</AvailableUpdates>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>admin</OwnerName>
     </table>
-    <table id="1155" parent="284" name="booking_preliminarybooking">
+    <table id="1155" parent="284" name="booking_preliminarydiagnosis">
       <ObjectId>87239</ObjectId>
-      <StateNumber>1246</StateNumber>
+      <StateNumber>1212</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>admin</OwnerName>
     </table>
@@ -25912,7 +25920,7 @@ service_id</ColNames>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>1166</StateNumber>
-      <SequenceId>87261</SequenceId>
+      <SequenceId>87098</SequenceId>
       <TypeId>20</TypeId>
     </column>
     <column id="3416" parent="1143" name="text">
@@ -25922,288 +25930,28 @@ service_id</ColNames>
       <StateNumber>1166</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="3417" parent="1143" name="guest_text">
-      <DasType>text|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>3</Position>
-      <StateNumber>1166</StateNumber>
-      <TypeId>25</TypeId>
-    </column>
-    <column id="3418" parent="1143" name="date">
-      <DasType>timestamp with time zone|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>4</Position>
-      <StateNumber>1166</StateNumber>
-      <TypeId>1184</TypeId>
-    </column>
-    <column id="3419" parent="1143" name="total_price">
-      <DasType>numeric(10,2 digit)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>5</Position>
-      <StateNumber>1166</StateNumber>
-      <TypeId>1700</TypeId>
-    </column>
-    <column id="3420" parent="1143" name="appointment_id">
-      <DasType>bigint|0s</DasType>
-      <Position>6</Position>
-      <StateNumber>1166</StateNumber>
-      <TypeId>20</TypeId>
-    </column>
-    <column id="3421" parent="1143" name="user_id">
-      <DasType>bigint|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>7</Position>
-      <StateNumber>1166</StateNumber>
-      <TypeId>20</TypeId>
-    </column>
-    <foreign-key id="3422" parent="1143" name="diagnosis_diagnosish_appointment_id_02d56384_fk_diagnosis">
-      <ColNames>appointment_id</ColNames>
-      <Deferrable>1</Deferrable>
-      <InitiallyDeferred>1</InitiallyDeferred>
-      <ObjectId>87522</ObjectId>
-      <StateNumber>1166</StateNumber>
-      <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>87194</RefTableId>
-    </foreign-key>
-    <foreign-key id="3423" parent="1143" name="diagnosis_diagnosish_user_id_1ce5c9d7_fk_diagnosis">
-      <ColNames>user_id</ColNames>
-      <Deferrable>1</Deferrable>
-      <InitiallyDeferred>1</InitiallyDeferred>
-      <ObjectId>87527</ObjectId>
-      <StateNumber>1166</StateNumber>
-      <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>87110</RefTableId>
-    </foreign-key>
-    <index id="3424" parent="1143" name="diagnosis_diagnosishistory_pkey">
-      <ColNames>id</ColNames>
-      <ObjectId>87269</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>1166</StateNumber>
-      <Unique>1</Unique>
-      <AccessMethodId>403</AccessMethodId>
-    </index>
-    <index id="3425" parent="1143" name="diagnosis_diagnosishistory_appointment_id_key">
-      <ColNames>appointment_id</ColNames>
-      <ObjectId>87271</ObjectId>
-      <StateNumber>1166</StateNumber>
-      <Unique>1</Unique>
-      <AccessMethodId>403</AccessMethodId>
-    </index>
-    <index id="3426" parent="1143" name="diagnosis_diagnosishistory_user_id_1ce5c9d7">
-      <ColNames>user_id</ColNames>
-      <ObjectId>87532</ObjectId>
-      <StateNumber>1166</StateNumber>
-      <AccessMethodId>403</AccessMethodId>
-    </index>
-    <key id="3427" parent="1143" name="diagnosis_diagnosishistory_pkey">
-      <ObjectId>87270</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>1166</StateNumber>
-      <UnderlyingIndexId>87269</UnderlyingIndexId>
-    </key>
-    <key id="3428" parent="1143" name="diagnosis_diagnosishistory_appointment_id_key">
-      <ObjectId>87272</ObjectId>
-      <StateNumber>1166</StateNumber>
-      <UnderlyingIndexId>87271</UnderlyingIndexId>
-    </key>
-    <column id="3429" parent="1144" name="id">
-      <DasType>bigint|0s</DasType>
-      <IdentityKind>by-default</IdentityKind>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-      <StateNumber>1166</StateNumber>
-      <SequenceId>87273</SequenceId>
-      <TypeId>20</TypeId>
-    </column>
-    <column id="3430" parent="1144" name="diagnosishistory_id">
-      <DasType>bigint|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>2</Position>
-      <StateNumber>1166</StateNumber>
-      <TypeId>20</TypeId>
-    </column>
-    <column id="3431" parent="1144" name="dishes_id">
-      <DasType>bigint|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>3</Position>
-      <StateNumber>1166</StateNumber>
-      <TypeId>20</TypeId>
-    </column>
-    <foreign-key id="3432" parent="1144" name="diagnosis_diagnosish_diagnosishistory_id_22d75de6_fk_diagnosis">
-      <ColNames>diagnosishistory_id</ColNames>
-      <Deferrable>1</Deferrable>
-      <InitiallyDeferred>1</InitiallyDeferred>
-      <ObjectId>87535</ObjectId>
-      <StateNumber>1166</StateNumber>
-      <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>87263</RefTableId>
-    </foreign-key>
-    <foreign-key id="3433" parent="1144" name="diagnosis_diagnosish_dishes_id_3abc53e6_fk_diagnosis">
-      <ColNames>dishes_id</ColNames>
-      <Deferrable>1</Deferrable>
-      <InitiallyDeferred>1</InitiallyDeferred>
-      <ObjectId>87540</ObjectId>
-      <StateNumber>1166</StateNumber>
-      <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>87050</RefTableId>
-    </foreign-key>
-    <index id="3434" parent="1144" name="diagnosis_diagnosishistory_dishes_pkey">
-      <ColNames>id</ColNames>
-      <ObjectId>87278</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>1166</StateNumber>
-      <Unique>1</Unique>
-      <AccessMethodId>403</AccessMethodId>
-    </index>
-    <index id="3435" parent="1144" name="diagnosis_diagnosishisto_diagnosishistory_id_dish_7bbd4e82_uniq">
-      <ColNames>diagnosishistory_id
-dishes_id</ColNames>
-      <ObjectId>87533</ObjectId>
-      <StateNumber>1166</StateNumber>
-      <Unique>1</Unique>
-      <AccessMethodId>403</AccessMethodId>
-    </index>
-    <index id="3436" parent="1144" name="diagnosis_diagnosishistory_dishes_diagnosishistory_id_22d75de6">
-      <ColNames>diagnosishistory_id</ColNames>
-      <ObjectId>87545</ObjectId>
-      <StateNumber>1166</StateNumber>
-      <AccessMethodId>403</AccessMethodId>
-    </index>
-    <index id="3437" parent="1144" name="diagnosis_diagnosishistory_dishes_dishes_id_3abc53e6">
-      <ColNames>dishes_id</ColNames>
-      <ObjectId>87546</ObjectId>
-      <StateNumber>1166</StateNumber>
-      <AccessMethodId>403</AccessMethodId>
-    </index>
-    <key id="3438" parent="1144" name="diagnosis_diagnosishistory_dishes_pkey">
-      <ObjectId>87279</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>1166</StateNumber>
-      <UnderlyingIndexId>87278</UnderlyingIndexId>
-    </key>
-    <key id="3439" parent="1144" name="diagnosis_diagnosishisto_diagnosishistory_id_dish_7bbd4e82_uniq">
-      <ObjectId>87534</ObjectId>
-      <StateNumber>1166</StateNumber>
-      <UnderlyingIndexId>87533</UnderlyingIndexId>
-    </key>
-    <column id="3440" parent="1145" name="id">
-      <DasType>bigint|0s</DasType>
-      <IdentityKind>by-default</IdentityKind>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-      <StateNumber>1166</StateNumber>
-      <SequenceId>87280</SequenceId>
-      <TypeId>20</TypeId>
-    </column>
-    <column id="3441" parent="1145" name="diagnosishistory_id">
-      <DasType>bigint|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>2</Position>
-      <StateNumber>1166</StateNumber>
-      <TypeId>20</TypeId>
-    </column>
-    <column id="3442" parent="1145" name="service_id">
-      <DasType>bigint|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>3</Position>
-      <StateNumber>1166</StateNumber>
-      <TypeId>20</TypeId>
-    </column>
-    <foreign-key id="3443" parent="1145" name="diagnosis_diagnosish_diagnosishistory_id_89f60658_fk_diagnosis">
-      <ColNames>diagnosishistory_id</ColNames>
-      <Deferrable>1</Deferrable>
-      <InitiallyDeferred>1</InitiallyDeferred>
-      <ObjectId>87549</ObjectId>
-      <StateNumber>1166</StateNumber>
-      <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>87263</RefTableId>
-    </foreign-key>
-    <foreign-key id="3444" parent="1145" name="diagnosis_diagnosish_service_id_9354f2d0_fk_diagnosis">
-      <ColNames>service_id</ColNames>
-      <Deferrable>1</Deferrable>
-      <InitiallyDeferred>1</InitiallyDeferred>
-      <ObjectId>87554</ObjectId>
-      <StateNumber>1166</StateNumber>
-      <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>87057</RefTableId>
-    </foreign-key>
-    <index id="3445" parent="1145" name="diagnosis_diagnosishistory_services_pkey">
-      <ColNames>id</ColNames>
-      <ObjectId>87285</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>1166</StateNumber>
-      <Unique>1</Unique>
-      <AccessMethodId>403</AccessMethodId>
-    </index>
-    <index id="3446" parent="1145" name="diagnosis_diagnosishisto_diagnosishistory_id_serv_6330f01f_uniq">
-      <ColNames>diagnosishistory_id
-service_id</ColNames>
-      <ObjectId>87547</ObjectId>
-      <StateNumber>1166</StateNumber>
-      <Unique>1</Unique>
-      <AccessMethodId>403</AccessMethodId>
-    </index>
-    <index id="3447" parent="1145" name="diagnosis_diagnosishistory_diagnosishistory_id_89f60658">
-      <ColNames>diagnosishistory_id</ColNames>
-      <ObjectId>87559</ObjectId>
-      <StateNumber>1166</StateNumber>
-      <AccessMethodId>403</AccessMethodId>
-    </index>
-    <index id="3448" parent="1145" name="diagnosis_diagnosishistory_services_service_id_9354f2d0">
-      <ColNames>service_id</ColNames>
-      <ObjectId>87560</ObjectId>
-      <StateNumber>1166</StateNumber>
-      <AccessMethodId>403</AccessMethodId>
-    </index>
-    <key id="3449" parent="1145" name="diagnosis_diagnosishistory_services_pkey">
-      <ObjectId>87286</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>1166</StateNumber>
-      <UnderlyingIndexId>87285</UnderlyingIndexId>
-    </key>
-    <key id="3450" parent="1145" name="diagnosis_diagnosishisto_diagnosishistory_id_serv_6330f01f_uniq">
-      <ObjectId>87548</ObjectId>
-      <StateNumber>1166</StateNumber>
-      <UnderlyingIndexId>87547</UnderlyingIndexId>
-    </key>
-    <column id="3451" parent="1146" name="id">
-      <DasType>bigint|0s</DasType>
-      <IdentityKind>by-default</IdentityKind>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-      <StateNumber>1166</StateNumber>
-      <SequenceId>87098</SequenceId>
-      <TypeId>20</TypeId>
-    </column>
-    <column id="3452" parent="1146" name="text">
-      <DasType>text|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>2</Position>
-      <StateNumber>1166</StateNumber>
-      <TypeId>25</TypeId>
-    </column>
-    <column id="3453" parent="1146" name="timestamp">
+    <column id="3417" parent="1143" name="timestamp">
       <DasType>timestamp with time zone|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>1166</StateNumber>
       <TypeId>1184</TypeId>
     </column>
-    <column id="3454" parent="1146" name="receiver_id">
+    <column id="3418" parent="1143" name="receiver_id">
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>1166</StateNumber>
       <TypeId>20</TypeId>
     </column>
-    <column id="3455" parent="1146" name="sender_id">
+    <column id="3419" parent="1143" name="sender_id">
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StateNumber>1166</StateNumber>
       <TypeId>20</TypeId>
     </column>
-    <foreign-key id="3456" parent="1146" name="diagnosis_chatmessage_receiver_id_509e23f2_fk_diagnosis_user_id">
+    <foreign-key id="3420" parent="1143" name="diagnosis_chatmessage_receiver_id_509e23f2_fk_diagnosis_user_id">
       <ColNames>receiver_id</ColNames>
       <Deferrable>1</Deferrable>
       <InitiallyDeferred>1</InitiallyDeferred>
@@ -26212,7 +25960,7 @@ service_id</ColNames>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>87074</RefTableId>
     </foreign-key>
-    <foreign-key id="3457" parent="1146" name="diagnosis_chatmessage_sender_id_4187af60_fk_diagnosis_user_id">
+    <foreign-key id="3421" parent="1143" name="diagnosis_chatmessage_sender_id_4187af60_fk_diagnosis_user_id">
       <ColNames>sender_id</ColNames>
       <Deferrable>1</Deferrable>
       <InitiallyDeferred>1</InitiallyDeferred>
@@ -26221,7 +25969,7 @@ service_id</ColNames>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>87074</RefTableId>
     </foreign-key>
-    <index id="3458" parent="1146" name="diagnosis_chatmessage_pkey">
+    <index id="3422" parent="1143" name="diagnosis_chatmessage_pkey">
       <ColNames>id</ColNames>
       <ObjectId>87106</ObjectId>
       <Primary>1</Primary>
@@ -26229,25 +25977,25 @@ service_id</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="3459" parent="1146" name="diagnosis_chatmessage_receiver_id_509e23f2">
+    <index id="3423" parent="1143" name="diagnosis_chatmessage_receiver_id_509e23f2">
       <ColNames>receiver_id</ColNames>
       <ObjectId>87333</ObjectId>
       <StateNumber>1166</StateNumber>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="3460" parent="1146" name="diagnosis_chatmessage_sender_id_4187af60">
+    <index id="3424" parent="1143" name="diagnosis_chatmessage_sender_id_4187af60">
       <ColNames>sender_id</ColNames>
       <ObjectId>87334</ObjectId>
       <StateNumber>1166</StateNumber>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="3461" parent="1146" name="diagnosis_chatmessage_pkey">
+    <key id="3425" parent="1143" name="diagnosis_chatmessage_pkey">
       <ObjectId>87107</ObjectId>
       <Primary>1</Primary>
       <StateNumber>1166</StateNumber>
       <UnderlyingIndexId>87106</UnderlyingIndexId>
     </key>
-    <column id="3462" parent="1147" name="id">
+    <column id="3426" parent="1144" name="id">
       <DasType>bigint|0s</DasType>
       <IdentityKind>by-default</IdentityKind>
       <NotNull>1</NotNull>
@@ -26256,14 +26004,14 @@ service_id</ColNames>
       <SequenceId>87041</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="3463" parent="1147" name="name">
+    <column id="3427" parent="1144" name="name">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>1166</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="3464" parent="1147" name="diagnosis_city_pkey">
+    <index id="3428" parent="1144" name="diagnosis_city_pkey">
       <ColNames>id</ColNames>
       <ObjectId>87046</ObjectId>
       <Primary>1</Primary>
@@ -26271,19 +26019,19 @@ service_id</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="3465" parent="1147" name="diagnosis_city_pkey">
+    <key id="3429" parent="1144" name="diagnosis_city_pkey">
       <ObjectId>87047</ObjectId>
       <Primary>1</Primary>
       <StateNumber>1166</StateNumber>
       <UnderlyingIndexId>87046</UnderlyingIndexId>
     </key>
-    <check id="3466" parent="1148" name="diagnosis_clientprofile_age_check">
+    <check id="3430" parent="1145" name="diagnosis_clientprofile_age_check">
       <ColNames>age</ColNames>
       <ObjectId>87124</ObjectId>
       <Predicate>age &gt;= 0</Predicate>
       <StateNumber>1166</StateNumber>
     </check>
-    <column id="3467" parent="1148" name="id">
+    <column id="3431" parent="1145" name="id">
       <DasType>bigint|0s</DasType>
       <IdentityKind>by-default</IdentityKind>
       <NotNull>1</NotNull>
@@ -26292,42 +26040,42 @@ service_id</ColNames>
       <SequenceId>87119</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="3468" parent="1148" name="blood_type">
+    <column id="3432" parent="1145" name="blood_type">
       <DasType>varchar(3)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>1166</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="3469" parent="1148" name="age">
+    <column id="3433" parent="1145" name="age">
       <DasType>integer|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>1166</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="3470" parent="1148" name="approved">
+    <column id="3434" parent="1145" name="approved">
       <DasType>boolean|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>1166</StateNumber>
       <TypeId>16</TypeId>
     </column>
-    <column id="3471" parent="1148" name="created_at">
+    <column id="3435" parent="1145" name="created_at">
       <DasType>timestamp with time zone|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StateNumber>1166</StateNumber>
       <TypeId>1184</TypeId>
     </column>
-    <column id="3472" parent="1148" name="guest_id">
+    <column id="3436" parent="1145" name="guest_id">
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
       <StateNumber>1166</StateNumber>
       <TypeId>20</TypeId>
     </column>
-    <foreign-key id="3473" parent="1148" name="diagnosis_clientprofile_guest_id_7aee02cb_fk_diagnosis_guest_id">
+    <foreign-key id="3437" parent="1145" name="diagnosis_clientprofile_guest_id_7aee02cb_fk_diagnosis_guest_id">
       <ColNames>guest_id</ColNames>
       <Deferrable>1</Deferrable>
       <InitiallyDeferred>1</InitiallyDeferred>
@@ -26336,7 +26084,7 @@ service_id</ColNames>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>87110</RefTableId>
     </foreign-key>
-    <index id="3474" parent="1148" name="diagnosis_clientprofile_pkey">
+    <index id="3438" parent="1145" name="diagnosis_clientprofile_pkey">
       <ColNames>id</ColNames>
       <ObjectId>87125</ObjectId>
       <Primary>1</Primary>
@@ -26344,25 +26092,25 @@ service_id</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="3475" parent="1148" name="diagnosis_clientprofile_guest_id_key">
+    <index id="3439" parent="1145" name="diagnosis_clientprofile_guest_id_key">
       <ColNames>guest_id</ColNames>
       <ObjectId>87127</ObjectId>
       <StateNumber>1166</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="3476" parent="1148" name="diagnosis_clientprofile_pkey">
+    <key id="3440" parent="1145" name="diagnosis_clientprofile_pkey">
       <ObjectId>87126</ObjectId>
       <Primary>1</Primary>
       <StateNumber>1166</StateNumber>
       <UnderlyingIndexId>87125</UnderlyingIndexId>
     </key>
-    <key id="3477" parent="1148" name="diagnosis_clientprofile_guest_id_key">
+    <key id="3441" parent="1145" name="diagnosis_clientprofile_guest_id_key">
       <ObjectId>87128</ObjectId>
       <StateNumber>1166</StateNumber>
       <UnderlyingIndexId>87127</UnderlyingIndexId>
     </key>
-    <column id="3478" parent="1149" name="id">
+    <column id="3442" parent="1146" name="id">
       <DasType>bigint|0s</DasType>
       <IdentityKind>by-default</IdentityKind>
       <NotNull>1</NotNull>
@@ -26371,35 +26119,35 @@ service_id</ColNames>
       <SequenceId>87139</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="3479" parent="1149" name="content">
+    <column id="3443" parent="1146" name="content">
       <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>1166</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="3480" parent="1149" name="created_at">
+    <column id="3444" parent="1146" name="created_at">
       <DasType>timestamp with time zone|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>1166</StateNumber>
       <TypeId>1184</TypeId>
     </column>
-    <column id="3481" parent="1149" name="user_id">
+    <column id="3445" parent="1146" name="user_id">
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>1166</StateNumber>
       <TypeId>20</TypeId>
     </column>
-    <column id="3482" parent="1149" name="post_id">
+    <column id="3446" parent="1146" name="post_id">
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StateNumber>1166</StateNumber>
       <TypeId>20</TypeId>
     </column>
-    <foreign-key id="3483" parent="1149" name="diagnosis_comment_user_id_b1c53946_fk_diagnosis_user_id">
+    <foreign-key id="3447" parent="1146" name="diagnosis_comment_user_id_b1c53946_fk_diagnosis_user_id">
       <ColNames>user_id</ColNames>
       <Deferrable>1</Deferrable>
       <InitiallyDeferred>1</InitiallyDeferred>
@@ -26408,7 +26156,7 @@ service_id</ColNames>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>87074</RefTableId>
     </foreign-key>
-    <foreign-key id="3484" parent="1149" name="diagnosis_comment_post_id_78282f3d_fk_diagnosis_post_id">
+    <foreign-key id="3448" parent="1146" name="diagnosis_comment_post_id_78282f3d_fk_diagnosis_post_id">
       <ColNames>post_id</ColNames>
       <Deferrable>1</Deferrable>
       <InitiallyDeferred>1</InitiallyDeferred>
@@ -26417,7 +26165,7 @@ service_id</ColNames>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>87131</RefTableId>
     </foreign-key>
-    <index id="3485" parent="1149" name="diagnosis_comment_pkey">
+    <index id="3449" parent="1146" name="diagnosis_comment_pkey">
       <ColNames>id</ColNames>
       <ObjectId>87147</ObjectId>
       <Primary>1</Primary>
@@ -26425,23 +26173,283 @@ service_id</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="3486" parent="1149" name="diagnosis_comment_user_id_b1c53946">
+    <index id="3450" parent="1146" name="diagnosis_comment_user_id_b1c53946">
       <ColNames>user_id</ColNames>
       <ObjectId>87362</ObjectId>
       <StateNumber>1166</StateNumber>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="3487" parent="1149" name="diagnosis_comment_post_id_78282f3d">
+    <index id="3451" parent="1146" name="diagnosis_comment_post_id_78282f3d">
       <ColNames>post_id</ColNames>
       <ObjectId>87363</ObjectId>
       <StateNumber>1166</StateNumber>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="3488" parent="1149" name="diagnosis_comment_pkey">
+    <key id="3452" parent="1146" name="diagnosis_comment_pkey">
       <ObjectId>87148</ObjectId>
       <Primary>1</Primary>
       <StateNumber>1166</StateNumber>
       <UnderlyingIndexId>87147</UnderlyingIndexId>
+    </key>
+    <column id="3453" parent="1147" name="id">
+      <DasType>bigint|0s</DasType>
+      <IdentityKind>by-default</IdentityKind>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>1166</StateNumber>
+      <SequenceId>87261</SequenceId>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="3454" parent="1147" name="text">
+      <DasType>text|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>1166</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="3455" parent="1147" name="guest_text">
+      <DasType>text|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <StateNumber>1166</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="3456" parent="1147" name="date">
+      <DasType>timestamp with time zone|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+      <StateNumber>1166</StateNumber>
+      <TypeId>1184</TypeId>
+    </column>
+    <column id="3457" parent="1147" name="total_price">
+      <DasType>numeric(10,2 digit)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+      <StateNumber>1166</StateNumber>
+      <TypeId>1700</TypeId>
+    </column>
+    <column id="3458" parent="1147" name="appointment_id">
+      <DasType>bigint|0s</DasType>
+      <Position>6</Position>
+      <StateNumber>1166</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="3459" parent="1147" name="user_id">
+      <DasType>bigint|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>7</Position>
+      <StateNumber>1166</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <foreign-key id="3460" parent="1147" name="diagnosis_diagnosish_appointment_id_02d56384_fk_diagnosis">
+      <ColNames>appointment_id</ColNames>
+      <Deferrable>1</Deferrable>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <ObjectId>87522</ObjectId>
+      <StateNumber>1166</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>87194</RefTableId>
+    </foreign-key>
+    <foreign-key id="3461" parent="1147" name="diagnosis_diagnosish_user_id_1ce5c9d7_fk_diagnosis">
+      <ColNames>user_id</ColNames>
+      <Deferrable>1</Deferrable>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <ObjectId>87527</ObjectId>
+      <StateNumber>1166</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>87110</RefTableId>
+    </foreign-key>
+    <index id="3462" parent="1147" name="diagnosis_diagnosishistory_pkey">
+      <ColNames>id</ColNames>
+      <ObjectId>87269</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1166</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <index id="3463" parent="1147" name="diagnosis_diagnosishistory_appointment_id_key">
+      <ColNames>appointment_id</ColNames>
+      <ObjectId>87271</ObjectId>
+      <StateNumber>1166</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <index id="3464" parent="1147" name="diagnosis_diagnosishistory_user_id_1ce5c9d7">
+      <ColNames>user_id</ColNames>
+      <ObjectId>87532</ObjectId>
+      <StateNumber>1166</StateNumber>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="3465" parent="1147" name="diagnosis_diagnosishistory_pkey">
+      <ObjectId>87270</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1166</StateNumber>
+      <UnderlyingIndexId>87269</UnderlyingIndexId>
+    </key>
+    <key id="3466" parent="1147" name="diagnosis_diagnosishistory_appointment_id_key">
+      <ObjectId>87272</ObjectId>
+      <StateNumber>1166</StateNumber>
+      <UnderlyingIndexId>87271</UnderlyingIndexId>
+    </key>
+    <column id="3467" parent="1148" name="id">
+      <DasType>bigint|0s</DasType>
+      <IdentityKind>by-default</IdentityKind>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>1166</StateNumber>
+      <SequenceId>87273</SequenceId>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="3468" parent="1148" name="diagnosishistory_id">
+      <DasType>bigint|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>1166</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="3469" parent="1148" name="dishes_id">
+      <DasType>bigint|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <StateNumber>1166</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <foreign-key id="3470" parent="1148" name="diagnosis_diagnosish_diagnosishistory_id_22d75de6_fk_diagnosis">
+      <ColNames>diagnosishistory_id</ColNames>
+      <Deferrable>1</Deferrable>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <ObjectId>87535</ObjectId>
+      <StateNumber>1166</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>87263</RefTableId>
+    </foreign-key>
+    <foreign-key id="3471" parent="1148" name="diagnosis_diagnosish_dishes_id_3abc53e6_fk_diagnosis">
+      <ColNames>dishes_id</ColNames>
+      <Deferrable>1</Deferrable>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <ObjectId>87540</ObjectId>
+      <StateNumber>1166</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>87050</RefTableId>
+    </foreign-key>
+    <index id="3472" parent="1148" name="diagnosis_diagnosishistory_dishes_pkey">
+      <ColNames>id</ColNames>
+      <ObjectId>87278</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1166</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <index id="3473" parent="1148" name="diagnosis_diagnosishisto_diagnosishistory_id_dish_7bbd4e82_uniq">
+      <ColNames>diagnosishistory_id
+dishes_id</ColNames>
+      <ObjectId>87533</ObjectId>
+      <StateNumber>1166</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <index id="3474" parent="1148" name="diagnosis_diagnosishistory_dishes_diagnosishistory_id_22d75de6">
+      <ColNames>diagnosishistory_id</ColNames>
+      <ObjectId>87545</ObjectId>
+      <StateNumber>1166</StateNumber>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <index id="3475" parent="1148" name="diagnosis_diagnosishistory_dishes_dishes_id_3abc53e6">
+      <ColNames>dishes_id</ColNames>
+      <ObjectId>87546</ObjectId>
+      <StateNumber>1166</StateNumber>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="3476" parent="1148" name="diagnosis_diagnosishistory_dishes_pkey">
+      <ObjectId>87279</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1166</StateNumber>
+      <UnderlyingIndexId>87278</UnderlyingIndexId>
+    </key>
+    <key id="3477" parent="1148" name="diagnosis_diagnosishisto_diagnosishistory_id_dish_7bbd4e82_uniq">
+      <ObjectId>87534</ObjectId>
+      <StateNumber>1166</StateNumber>
+      <UnderlyingIndexId>87533</UnderlyingIndexId>
+    </key>
+    <column id="3478" parent="1149" name="id">
+      <DasType>bigint|0s</DasType>
+      <IdentityKind>by-default</IdentityKind>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>1166</StateNumber>
+      <SequenceId>87280</SequenceId>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="3479" parent="1149" name="diagnosishistory_id">
+      <DasType>bigint|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>1166</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="3480" parent="1149" name="service_id">
+      <DasType>bigint|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <StateNumber>1166</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <foreign-key id="3481" parent="1149" name="diagnosis_diagnosish_diagnosishistory_id_89f60658_fk_diagnosis">
+      <ColNames>diagnosishistory_id</ColNames>
+      <Deferrable>1</Deferrable>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <ObjectId>87549</ObjectId>
+      <StateNumber>1166</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>87263</RefTableId>
+    </foreign-key>
+    <foreign-key id="3482" parent="1149" name="diagnosis_diagnosish_service_id_9354f2d0_fk_diagnosis">
+      <ColNames>service_id</ColNames>
+      <Deferrable>1</Deferrable>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <ObjectId>87554</ObjectId>
+      <StateNumber>1166</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>87057</RefTableId>
+    </foreign-key>
+    <index id="3483" parent="1149" name="diagnosis_diagnosishistory_services_pkey">
+      <ColNames>id</ColNames>
+      <ObjectId>87285</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1166</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <index id="3484" parent="1149" name="diagnosis_diagnosishisto_diagnosishistory_id_serv_6330f01f_uniq">
+      <ColNames>diagnosishistory_id
+service_id</ColNames>
+      <ObjectId>87547</ObjectId>
+      <StateNumber>1166</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <index id="3485" parent="1149" name="diagnosis_diagnosishistory_diagnosishistory_id_89f60658">
+      <ColNames>diagnosishistory_id</ColNames>
+      <ObjectId>87559</ObjectId>
+      <StateNumber>1166</StateNumber>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <index id="3486" parent="1149" name="diagnosis_diagnosishistory_services_service_id_9354f2d0">
+      <ColNames>service_id</ColNames>
+      <ObjectId>87560</ObjectId>
+      <StateNumber>1166</StateNumber>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="3487" parent="1149" name="diagnosis_diagnosishistory_services_pkey">
+      <ObjectId>87286</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1166</StateNumber>
+      <UnderlyingIndexId>87285</UnderlyingIndexId>
+    </key>
+    <key id="3488" parent="1149" name="diagnosis_diagnosishisto_diagnosishistory_id_serv_6330f01f_uniq">
+      <ObjectId>87548</ObjectId>
+      <StateNumber>1166</StateNumber>
+      <UnderlyingIndexId>87547</UnderlyingIndexId>
     </key>
     <column id="3489" parent="1150" name="id">
       <DasType>bigint|0s</DasType>
